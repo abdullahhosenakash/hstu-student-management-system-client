@@ -1,11 +1,12 @@
 import React from 'react';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import './Shared.css';
 
 const Header = () => {
     return (
         <div>
-            <Navbar collapseOnSelect expand="lg" bg="success" variant="dark">
+            <Navbar collapseOnSelect expand="lg" bg="secondary" variant="dark" className='fixed-top'>
                 <Container>
                     <Navbar.Brand as={Link} to='/'>HSTU Student Panel</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />

@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button, Form } from 'react-bootstrap';
-import { useLocation } from 'react-router-dom';
+import { Button, FloatingLabel, Form } from 'react-bootstrap';
+import { Link, useLocation } from 'react-router-dom';
+import './Login.css';
 
 const Login = () => {
     const location = useLocation();
@@ -17,35 +18,46 @@ const Login = () => {
                 .then(data => {
 
                 })
-
     }
     return (
-        <div>
-            <Form className='w-25 mx-auto mt-5' onSubmit={handleLogin}>
+        <div className='login-page mx-auto header-margin'>
+            <h2 className='display-6'>Please Login</h2>
+            <Form onSubmit={handleLogin}>
                 {
                     role === 'admin' ?
-                        <Form.Group className="mb-3" controlId="adminEmail">
-                            <Form.Label>Admin Email address</Form.Label>
+                        <FloatingLabel
+                            controlId="adminEmail"
+                            label="Admin Email address"
+                            className="mb-3"
+                        >
                             <Form.Control name='email' type="email" placeholder="Enter email" required />
-                        </Form.Group>
+                        </FloatingLabel>
                         :
-                        <Form.Group className="mb-3" controlId="studentId">
-                            <Form.Label>Student ID</Form.Label>
-                            <Form.Control name='studentId' type="number" placeholder="Enter Student ID" required />
-                        </Form.Group>
+                        <FloatingLabel
+                            controlId="studentId"
+                            label="Student ID"
+                            className="mb-3"
+                        >
+                            <Form.Control name='studentId' type="number" placeholder="Enter Student ID" onWheel={e => e.target.blur()} required />
+                        </FloatingLabel>
                 }
 
-                <Form.Group className="mb-3" controlId="password">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control name='password' type="password" placeholder="Password" required />
-                </Form.Group>
+                <FloatingLabel
+                    controlId="password"
+                    label="Password"
+                    className="mb-3"
+                >
+                    <Form.Control name='password' type="password" placeholder="Enter password" required />
+                </FloatingLabel>
+
                 {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
                     <Form.Check type="checkbox" label="Check me out" />
                 </Form.Group> */}
                 <Button variant="success" type="submit" className='w-50 mx-auto d-block'>
-                    Submit
+                    Login
                 </Button>
             </Form>
+            <small>Don't have an account? <Link to='/signup'>Sign Up</Link></small>
         </div>
     );
 };
