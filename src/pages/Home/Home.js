@@ -5,7 +5,7 @@ import './Home.css';
 
 const Home = () => {
     return (
-        <div className='text-center header-margin'>
+        <div className='text-center header-margin mb-5'>
             <img className='homepage-logo' src={logo} alt="" />
             <h2>Welcome to HSTU Student Panel</h2>
 

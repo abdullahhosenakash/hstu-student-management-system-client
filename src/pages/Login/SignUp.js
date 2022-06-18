@@ -1,12 +1,24 @@
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { Button, FloatingLabel, Form } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import auth, { storage } from '../../firebase.init';
+import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 
 const SignUp = () => {
     const [faculty, setFaculty] = useState('');
     const [dept, setDept] = useState([]);
+    const [studentIdCardURL, setStudentIdCardURL] = useState('');
+    const [
+        createUserWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useCreateUserWithEmailAndPassword(auth);
+    const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+
     useEffect(() => {
         let department;
         switch (faculty) {
@@ -151,41 +163,63 @@ const SignUp = () => {
                 break;
 
             default:
-                return;
+                setDept([]);
         }
-    }, [faculty])
+    }, [faculty]);
+
     const handleSignup = event => {
         event.preventDefault();
+        const studentName = event.target.name.value;
+        const studentEmail = event.target.email.value;
+        const studentId = event.target.studentId.value;
+        const password = event.target.password.value;
+        const faculty = event.target.faculty.value;
+        const department = event.target.department.value;
+        const studentIdCard = event.target.studentIdCard.files[0];
+
+        const reference = ref(storage, `images/session-20${studentId.slice(0, 2)}/faculty-${faculty}/department-${department}/${studentId}`);
+        uploadBytes(reference, studentIdCard)
+            .then(() => {
+                getDownloadURL(reference)
+                    .then(url => {
+                        setStudentIdCardURL(url);
+                        createUserWithEmailAndPassword(studentEmail, password)
+                            .then(async () => await updateProfile({ displayName: studentName }))
+                        console.log(studentName, studentEmail, studentId, password, faculty, department, studentIdCardURL);
+
+                    });
+            });
     }
-    console.log(dept);
+    // console.log(error)
+    // console.log(user);
     return (
-        <div className='login-page mx-auto header-margin'>
+        <div className='sign-up-page mx-auto header-margin mb-5'>
             <h2 className='display-6 text-center'>Student Sign Up</h2>
             <Form onSubmit={handleSignup}>
 
                 <Form.Group className="mb-3" controlId="studentName">
                     <Form.Label>Name</Form.Label>
-                    <Form.Control type="text" name='name' placeholder="Enter Name according to your Student ID Card" />
+                    <Form.Control type="text" name='name' placeholder="Enter Name according to your Student ID Card" required />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="studentEmail">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" name='email' placeholder="Enter email" />
+                    <Form.Control type="email" name='email' placeholder="Enter email" required />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="studentId">
                     <Form.Label>Student ID</Form.Label>
-                    <Form.Control type="number" onWheel={e => e.target.blur()} name='studentId' placeholder="Enter Student ID" />
+                    <Form.Control type="number" onWheel={e => e.target.blur()} name='studentId' placeholder="Enter Student ID" required />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="studentPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" name='password' placeholder="Enter Password" />
+                    <Form.Control type="password" name='password' placeholder="Enter Password" required />
                 </Form.Group>
 
-                <Form.Group className="mb-3 pe-3 w-50 d-inline-block" controlId="studentFaculty">
+                <Form.Group className="mb-3 dropdown-select faculty" controlId="studentFaculty">
                     <Form.Label>Faculty</Form.Label>
-                    <Form.Select aria-label="Faculty" required onChange={e => setFaculty(e.target.value)}>
+                    <Form.Select aria-label="Faculty" name='faculty' required onChange={e => setFaculty(e.target.value)}>
                         <option value=''>- - Select Faculty - -</option>
                         <option value="agriculture">Agriculture</option>
                         <option value="cse">Computer Science and Engineering</option>
@@ -198,9 +232,9 @@ const SignUp = () => {
                     </Form.Select>
                 </Form.Group>
 
-                <Form.Group className="mb-3 ps-3 w-50 d-inline-block" controlId="studentDepartment">
+                <Form.Group className="mb-3 dropdown-select department" controlId="studentDepartment">
                     <Form.Label>Department</Form.Label>
-                    <Form.Select aria-label="Department" >
+                    <Form.Select aria-label="Department" name='department' required>
                         <option value=''>- - Select Department - -</option>
                         {
                             dept.map((d, index) => <option key={index} value={d.deptValue}>{d.dept}</option>)
@@ -210,7 +244,7 @@ const SignUp = () => {
 
                 <Form.Group className="mb-3" controlId="studentIdCard">
                     <Form.Label>Student ID Card</Form.Label>
-                    <Form.Control type="file" name='photo' />
+                    <Form.Control type="file" name='studentIdCard' accept=".png, .jpg, .jpeg" required />
                 </Form.Group>
 
                 {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">

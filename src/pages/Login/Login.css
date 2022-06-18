@@ -1,9 +1,44 @@
-.login-page {
+.sign-up-page {
     width: 50%;
 }
 
+.login-page {
+    width: 35%;
+}
+
+.dropdown-select {
+    width: 49%;
+    display: inline-block;
+}
+
+.faculty {
+    margin-right: 1%;
+}
+
+.department {
+    margin-left: 1%;
+}
+
 @media only screen and (max-width: 992px) {
+    .sign-up-page {
+        width: 90%;
+    }
+
     .login-page {
         width: 90%;
     }
+
+    .dropdown-select {
+        display: block;
+        width: 100%;
+    }
+
+    .faculty {
+        margin-right: 0;
+    }
+
+    .department {
+        margin-left: 0;
+    }
+
 }
