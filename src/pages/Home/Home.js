@@ -8,12 +8,11 @@ const Home = () => {
         <div className='text-center header-margin'>
             <img className='homepage-logo' src={logo} alt="" />
             <h2>Welcome to HSTU Student Panel</h2>
-            <Link to='/login' className='text-decoration-none' state={{ role: 'student' }}>
-                <button className="btn btn-secondary login-button mx-auto d-block mb-3 mt-4">Student Login</button>
-            </Link>
-            <Link to='/login' className='text-decoration-none' state={{ role: 'admin' }}>
-                <button className="btn btn-secondary login-button d-block mx-auto">Admin Login</button>
-            </Link>
+
+            <Link to='/login' className='text-decoration-none btn btn-secondary login-button mx-auto d-block mb-3 mt-4' state={{ role: 'student' }}>Student Login</Link>
+
+            <Link to='/login' className='text-decoration-none btn btn-secondary login-button d-block mx-auto' state={{ role: 'admin' }}>Admin Login</Link>
+
         </div>
     );
 };
