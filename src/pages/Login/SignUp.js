@@ -6,18 +6,20 @@ import { Button, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import auth, { storage } from '../../firebase.init';
 import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
+import Loading from '../shared/Loading';
 
 const SignUp = () => {
     const [faculty, setFaculty] = useState('');
     const [dept, setDept] = useState([]);
     const [studentIdCardURL, setStudentIdCardURL] = useState('');
+    const [loading, setLoading] = useState(false);
     const [
         createUserWithEmailAndPassword,
         user,
-        loading,
+        signUpLoading,
         error,
     ] = useCreateUserWithEmailAndPassword(auth);
-    const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+    const [updateProfile] = useUpdateProfile(auth);
 
     useEffect(() => {
         let department;
@@ -167,8 +169,12 @@ const SignUp = () => {
         }
     }, [faculty]);
 
+    if (loading || signUpLoading) {
+        return <Loading />
+    }
     const handleSignup = event => {
         event.preventDefault();
+        setLoading(true);
         const studentName = event.target.name.value;
         const studentEmail = event.target.email.value;
         const studentId = event.target.studentId.value;
@@ -186,7 +192,7 @@ const SignUp = () => {
                         createUserWithEmailAndPassword(studentEmail, password)
                             .then(async () => await updateProfile({ displayName: studentName }))
                         console.log(studentName, studentEmail, studentId, password, faculty, department, studentIdCardURL);
-
+                        setLoading(false);
                     });
             });
     }

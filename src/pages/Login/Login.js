@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import { Button, FloatingLabel, Form } from 'react-bootstrap';
+import React from 'react';
+import { Button, Form } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
-import { useUploadFile } from 'react-firebase-hooks/storage';
 import './Login.css';
-import auth, { storage } from '../../firebase.init';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import auth from '../../firebase.init';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import Loading from '../shared/Loading';
 
 
 const Login = () => {
@@ -18,13 +17,16 @@ const Login = () => {
         error,
     ] = useSignInWithEmailAndPassword(auth);
 
+    if (loading) {
+        return <Loading />
+    }
+
     const handleLogin = async event => {
         event.preventDefault();
         const email = event.target.email.value;
         const studentId = event.target.studentId?.value;
         const password = event.target.password.value;
         signInWithEmailAndPassword(email, password);
-
     }
     console.log(error)
     return (
