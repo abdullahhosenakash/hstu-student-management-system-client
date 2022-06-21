@@ -6,7 +6,8 @@ import SignUp from './pages/Login/SignUp';
 import NotFound from './pages/NotFound/NotFound';
 import Header from './pages/shared/Header';
 import StudentPanel from './pages/StudentPanel/StudentPanel';
-import UpdateUser from './pages/StudentPanel/UpdateUser';
+import StudentPanelHome from './pages/StudentPanel/StudentPanelHome';
+import UpdateProfile from './pages/StudentPanel/UpdateProfile';
 
 function App() {
   return (
@@ -19,7 +20,9 @@ function App() {
         <Route path='/signup' element={<SignUp />} />
 
         <Route path='/studentPanel' element={<StudentPanel />}>
-          <Route path='updateUser' element={<UpdateUser />} />
+          <Route path='home' element={<StudentPanelHome />} />
+          <Route path='' element={<StudentPanelHome />} />
+          <Route path='updateUser' element={<UpdateProfile />} />
         </Route>
 
         <Route path='*' element={<NotFound />} />

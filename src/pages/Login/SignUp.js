@@ -2,42 +2,43 @@ import React from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
-import { useAuthState, useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import Loading from '../shared/Loading';
 import { useEffect } from 'react';
 import useToken from '../../hooks/useToken';
+import { useState } from 'react';
 
 const SignUp = () => {
-    const [user] = useAuthState(auth);
     const location = useLocation();
     const { role } = location.state;
+    const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
     const [token] = useToken();
     const [
         createUserWithEmailAndPassword,
-        user2,
+        ,
         signUpLoading,
         error,
     ] = useCreateUserWithEmailAndPassword(auth);
     const [updateProfile] = useUpdateProfile(auth);
 
     useEffect(() => {
+        error && setErrorMessage(error.message);
         token && navigate(`${role === 'student' ? '/studentPanel' : '/adminPanel'}`, { replace: true });
-    }, [navigate, token, role]);
+    }, [navigate, token, role, error]);
 
     if (signUpLoading) {
         return <Loading />
     }
     const handleSignup = event => {
         event.preventDefault();
-        // setLoading(true);
-        const studentName = event.target.name.value;
-        const studentEmail = event.target.email.value;
+        const userName = event.target.name.value;
+        const userEmail = event.target.email.value;
         const password = event.target.password.value;
 
-        createUserWithEmailAndPassword(studentEmail, password)
+        createUserWithEmailAndPassword(userEmail, password)
             .then(async () => {
-                await updateProfile({ displayName: studentName });
+                await updateProfile({ displayName: userName });
             });
     }
 
@@ -61,10 +62,8 @@ const SignUp = () => {
                     <Form.Control type="password" name='password' placeholder="Enter new password" required />
                 </Form.Group>
 
+                {errorMessage && <p className='mt-2 text-danger'>{errorMessage}</p>}
 
-                {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Check me out" />
-                </Form.Group> */}
                 <Button variant="secondary" type="submit" className='w-50 mx-auto d-block'>
                     Sign Up
                 </Button>

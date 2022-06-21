@@ -1,3 +1,8 @@
+.margin-top {
+    position: relative;
+    top: 50px;
+}
+
 .parent-route {
     padding-bottom: 20px;
     top: 55px !important;
@@ -11,6 +16,11 @@
 
 .nav-menu span {
     font-weight: 700;
+}
+
+.update-profile {
+    margin-top: 10px;
+    width: 40%;
 }
 
 @media only screen and (max-width: 992px) {
@@ -43,5 +53,10 @@
 
     .custom-link {
         padding-bottom: 2px !important;
+    }
+
+    .update-profile {
+        margin-top: 180px;
+        width: 90%;
     }
 }

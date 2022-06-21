@@ -6,14 +6,12 @@ const useToken = () => {
     const [user] = useAuthState(auth);
     const [token, setToken] = useState('');
     useEffect(() => {
-        const email = user?.email;
-        const currentUser = { email };
-        email && fetch(`http://localhost:5000/user-login/${email}`, {
+        const userEmail = user?.email;
+        userEmail && fetch(`http://localhost:5000/user-login/${userEmail}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
-            },
-            body: JSON.stringify(currentUser)
+            }
         })
             .then(res => {
                 console.log(res);

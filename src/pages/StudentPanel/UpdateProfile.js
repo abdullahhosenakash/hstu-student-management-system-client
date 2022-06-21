@@ -5,22 +5,16 @@ import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import auth, { storage } from '../../firebase.init';
-import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
+import { useAuthState, useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import Loading from '../shared/Loading';
 
-const UpdateUser = () => {
+const UpdateProfile = () => {
+    const [user] = useAuthState(auth);
     const [faculty, setFaculty] = useState('');
     const [dept, setDept] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
     const [studentIdCardURL, setStudentIdCardURL] = useState('');
     const [loading, setLoading] = useState(false);
-    const [
-        createUserWithEmailAndPassword,
-        user,
-        signUpLoading,
-        error,
-    ] = useCreateUserWithEmailAndPassword(auth);
-    const [updateProfile] = useUpdateProfile(auth);
 
     useEffect(() => {
         let department;
@@ -170,17 +164,16 @@ const UpdateUser = () => {
         }
     }, [faculty]);
 
-    if (loading || signUpLoading) {
+    if (loading) {
         return <Loading />
     }
     const handleSignup = event => {
         event.preventDefault();
         // setLoading(true);
-        const studentName = event.target.name.value;
-        const studentEmail = event.target.email.value;
+        const studentName = user.displayName;
+        const studentEmail = user.email;
         const studentId = event.target.studentId.value;
         const phone = event.target.phone.value;
-        const password = event.target.password.value;
         const faculty = event.target.faculty.value;
         const department = event.target.department.value;
         const studentIdCard = event.target.studentIdCard.files[0];
@@ -232,18 +225,18 @@ const UpdateUser = () => {
     // console.log(error)
     // console.log(user);
     return (
-        <div className='sign-up-page mx-auto header-margin mb-5'>
-            <h2 className='display-6 text-center'>Student Sign Up</h2>
+        <div className='update-profile mx-auto mb-5'>
+            <h3 className='fs-3 text-center'>Update Your Profile</h3>
             <Form onSubmit={handleSignup}>
 
                 <Form.Group className="mb-3" controlId="studentName">
                     <Form.Label>Name</Form.Label>
-                    <Form.Control type="text" name='name' placeholder="Enter Name according to your Student ID Card" required />
+                    <Form.Control type="text" name='name' placeholder="Enter Name according to your Student ID Card" value={user.displayName} disabled />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="studentEmail">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" name='email' placeholder="Enter email" required />
+                    <Form.Control type="email" name='email' placeholder="Enter email" value={user.email} disabled />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="studentId">
@@ -254,11 +247,6 @@ const UpdateUser = () => {
                 <Form.Group className="mb-3" controlId="phone">
                     <Form.Label>Phone</Form.Label>
                     <Form.Control type="number" onWheel={e => e.target.blur()} name='phone' placeholder="Enter Phone Number" required />
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="studentPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" name='password' placeholder="Enter Password" required />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="studentFaculty">
@@ -291,16 +279,12 @@ const UpdateUser = () => {
                     <Form.Control type="file" name='studentIdCard' accept=".png, .jpg, .jpeg" required />
                 </Form.Group>
 
-                {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Check me out" />
-                </Form.Group> */}
                 <Button variant="secondary" type="submit" className='w-50 mx-auto d-block'>
-                    Sign Up
+                    Update
                 </Button>
             </Form>
-            <p className='mt-2'>Already have an account? <Link to='/login' className="text-decoration-none ms-1" state={{ role: 'student' }}>Login</Link></p>
         </div>
     );
 };
 
-export default UpdateUser;
+export default UpdateProfile;
