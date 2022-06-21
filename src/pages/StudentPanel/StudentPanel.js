@@ -12,9 +12,9 @@ const StudentPanel = () => {
                 <nav className='d-flex nav-menu'>
                     <CustomLink to='/studentPanel/home'><span>HOME</span></CustomLink>
                     <CustomLink to='/studentPanel'><span>REVIEWS</span></CustomLink>
-                    <CustomLink to='/studentPanel/updateUser'><span>DASHBOARD</span></CustomLink>
+                    <CustomLink to='/studentPanel/'><span>DASHBOARD</span></CustomLink>
                     <CustomLink to='/studentPanel'><span>BLOGS</span></CustomLink>
-                    <CustomLink to='/studentPanel/updateUser'><span>UPDATE PROFILE</span></CustomLink>
+                    <CustomLink to='/studentPanel/userProfile'><span>PROFILE</span></CustomLink>
                 </nav>
             </div>
 

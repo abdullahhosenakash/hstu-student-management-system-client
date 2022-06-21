@@ -1,12 +1,56 @@
 [
     {
-        "id": "1",
-        "email": "123@11.com",
-        "password": "123456"
+        "userName": "akash",
+        "userEmail": "123@11.com",
+        "studentId": "123456",
+        "phone": "123456",
+        "faculty": "cse",
+        "department": "ece",
+        "studentIdCard": "ahhaahsdajshdjhda"
     },
     {
-        "id": "2",
-        "email": "abdullahhosenakash@gmail.com",
-        "studentId": "1802103"
+        "userName": "batas",
+        "userEmail": "12asddasd3@11.com",
+        "studentId": "113123456",
+        "phone": "123132456",
+        "faculty": "csess",
+        "department": "eddce",
+        "studentIdCard": "ahhasdDaahsdajshdjhda"
+    },
+    {
+        "userName": "akasdfash",
+        "userEmail": "12asdfq3@11.com",
+        "studentId": "123453211236",
+        "phone": "12345132412346",
+        "faculty": "cqese",
+        "department": "ecqwere",
+        "studentIdCard": "ahhajewqklru324ahsdajshdjhda"
+    },
+    {
+        "userName": "aaa",
+        "userEmail": "12aa3@11.com",
+        "studentId": "1232222456",
+        "phone": "12345633",
+        "faculty": "csse",
+        "department": "ece",
+        "studentIdCard": "ahhaahqqqqqsdajshdjhda"
+    },
+    {
+        "userName": "akas11h",
+        "userEmail": "1ss23@11.com",
+        "studentId": "12322456",
+        "phone": "12345116",
+        "faculty": "cse",
+        "department": "ece",
+        "studentIdCard": "ahhaahQWAEQEsdajshdjhda"
+    },
+    {
+        "userName": "akamnasbhfiuewhsh",
+        "userEmail": "1wswss23@11.com",
+        "studentId": "1232221456",
+        "phone": "1111223456",
+        "faculty": "cse",
+        "department": "ece",
+        "studentIdCard": "ahhaahsdajsqsdfasdfchdjhda"
     }
 ]

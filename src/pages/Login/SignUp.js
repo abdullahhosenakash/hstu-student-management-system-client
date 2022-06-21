@@ -43,7 +43,7 @@ const SignUp = () => {
     }
 
     return (
-        <div className='sign-up-page mx-auto header-margin mb-5'>
+        <div className='sign-up-page mx-auto header-margin mb-5 pt-2'>
             <h2 className='display-6 text-center'>Student Sign Up</h2>
             <Form onSubmit={handleSignup}>
 

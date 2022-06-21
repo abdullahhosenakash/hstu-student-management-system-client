@@ -13,14 +13,10 @@ const useToken = () => {
                 'content-type': 'application/json'
             }
         })
-            .then(res => {
-                console.log(res);
-                return res.json();
-            })
+            .then(res => res.json())
             .then(data => {
                 localStorage.setItem('accessToken', data.token);
                 setToken(data.token);
-                console.log(data);
             });
     }, [user?.email])
     return [token];

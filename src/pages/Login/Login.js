@@ -15,7 +15,10 @@ const Login = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
-    const { role } = location.state || "student";
+    let whoAreYou;
+    location.state?.role ? whoAreYou = location.state : whoAreYou = { role: 'student' };
+    const { role } = whoAreYou;
+
     const [
         signInWithEmailAndPassword,
         user2,
@@ -27,7 +30,7 @@ const Login = () => {
         if (error) {
             setErrorMessage(error.message);
         }
-        token && navigate(`${role === 'student' ? '/studentPanel' : '/adminPanel'}`);
+        token && navigate(`${role === 'admin' ? '/adminPanel' : '/studentPanel'}`);
     }, [error, token, navigate, role])
 
     if (loading) {
