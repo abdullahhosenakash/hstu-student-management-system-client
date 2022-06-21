@@ -1,12 +1,142 @@
 [
     {
-        "id": "1",
-        "studentId": "1802103",
-        "password": "123456"
+        "studentId": "1802102",
+        "studentName": "Mobashwerul Islam",
+        "department": "ece",
+        "level": "1",
+        "semester": "I",
+        "runningBatch": "2018",
+        "session": "2018",
+        "result": {
+            "theory": [
+                {
+                    "courseCode": "EEE 103",
+                    "courseTitle": "Basic Electrical Engineering",
+                    "letterGrade": "B-",
+                    "gradePoint": "2.75"
+                },
+                {
+                    "courseCode": "CSE 107",
+                    "courseTitle": "Computer Basics and Programming",
+                    "letterGrade": "B+",
+                    "gradePoint": "3.25"
+                },
+                {
+                    "courseCode": "MAT 109",
+                    "courseTitle": "Differential and Integral Calculus",
+                    "letterGrade": "B+",
+                    "gradePoint": "3.25"
+                },
+                {
+                    "courseCode": "CHE 139",
+                    "courseTitle": "Chemistry",
+                    "letterGrade": "B-",
+                    "gradePoint": "2.75"
+                },
+                {
+                    "courseCode": "SSL 107",
+                    "courseTitle": "Technical English",
+                    "letterGrade": "A",
+                    "gradePoint": "3.75"
+                },
+                {
+                    "courseCode": "SOC 105",
+                    "courseTitle": "Sociology",
+                    "letterGrade": "A-",
+                    "gradePoint": "3.50"
+                }
+            ],
+            "sessional": [
+                {
+                    "courseCode": "EEE 104",
+                    "courseTitle": "Basic Electrical Engineering Sessional",
+                    "letterGrade": "C+",
+                    "gradePoint": "2.50"
+                },
+                {
+                    "courseCode": "CSE 108",
+                    "courseTitle": "Computer Basics and Programming Sessional",
+                    "letterGrade": "D",
+                    "gradePoint": "2.00"
+                },
+                {
+                    "courseCode": "CHE 140",
+                    "courseTitle": "Chemistry Sessional",
+                    "letterGrade": "B",
+                    "gradePoint": "3.00"
+                }
+            ],
+            "GPA": "3.02"
+        }
     },
     {
-        "id": "2",
-        "studentId": "1802104",
-        "password": "123457"
+        "studentId": "1802103",
+        "studentName": "Md Abdullah Hosen",
+        "department": "ece",
+        "level": "1",
+        "semester": "I",
+        "runningBatch": "2018",
+        "session": "2018",
+        "result": {
+            "theory": [
+                {
+                    "courseCode": "EEE 103",
+                    "courseTitle": "Basic Electrical Engineering",
+                    "letterGrade": "B-",
+                    "gradePoint": "2.75"
+                },
+                {
+                    "courseCode": "CSE 107",
+                    "courseTitle": "Computer Basics and Programming",
+                    "letterGrade": "B+",
+                    "gradePoint": "3.25"
+                },
+                {
+                    "courseCode": "MAT 109",
+                    "courseTitle": "Differential and Integral Calculus",
+                    "letterGrade": "B-",
+                    "gradePoint": "2.75"
+                },
+                {
+                    "courseCode": "CHE 139",
+                    "courseTitle": "Chemistry",
+                    "letterGrade": "D",
+                    "gradePoint": "2.00"
+                },
+                {
+                    "courseCode": "SSL 107",
+                    "courseTitle": "Technical English",
+                    "letterGrade": "B+",
+                    "gradePoint": "3.25"
+                },
+                {
+                    "courseCode": "SOC 105",
+                    "courseTitle": "Sociology",
+                    "letterGrade": "A",
+                    "gradePoint": "3.75"
+                }
+            ],
+            "sessional": [
+                {
+                    "courseCode": "EEE 104",
+                    "courseTitle": "Basic Electrical Engineering Sessional",
+                    "letterGrade": "A-",
+                    "gradePoint": "3.50"
+                },
+                {
+                    "courseCode": "CSE 108",
+                    "courseTitle": "Computer Basics and Programming Sessional",
+                    "letterGrade": "A+",
+                    "gradePoint": "4.00"
+                },
+                {
+                    "courseCode": "CHE 140",
+                    "courseTitle": "Chemistry Sessional",
+                    "letterGrade": "A-",
+                    "gradePoint": "3.50"
+                }
+            ],
+            "GPA": "3.01"
+        }
     }
 ]

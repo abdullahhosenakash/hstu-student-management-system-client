@@ -1,6 +1,6 @@
 import React from 'react';
 
-const StudentPanelHome = () => {
+const Enrollment = () => {
     return (
         <div className='update-profile mx-auto mb-5'>
             <h2>aa</h2>
@@ -8,4 +8,4 @@ const StudentPanelHome = () => {
     );
 };
 
-export default StudentPanelHome;
+export default Enrollment;

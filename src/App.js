@@ -11,6 +11,8 @@ import Header from './pages/shared/Header';
 import StudentPanel from './pages/StudentPanel/StudentPanel';
 import StudentPanelHome from './pages/StudentPanel/StudentPanelHome';
 import UserProfile from './pages/StudentPanel/UserProfile';
+import Enrollment from './pages/StudentPanel/Enrollment';
+import Result from './pages/StudentPanel/Result';
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
           <Route path='home' element={<StudentPanelHome />} />
           <Route path='' element={<StudentPanelHome />} />
           <Route path='userProfile' element={<UserProfile />} />
+          <Route path='enrollment' element={<Enrollment />} />
+          <Route path='result' element={<Result />} />
         </Route>
 
         <Route path='*' element={<NotFound />} />

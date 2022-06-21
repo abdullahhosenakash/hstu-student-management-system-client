@@ -2,7 +2,7 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { Button, Card, FloatingLabel, Form } from 'react-bootstrap';
+import { Button, FloatingLabel, Form } from 'react-bootstrap';
 import auth, { storage } from '../../firebase.init';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Loading from '../shared/Loading';
@@ -15,9 +15,9 @@ const UpdateProfile = () => {
     const [dept, setDept] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
     const [studentIdCardURL, setStudentIdCardURL] = useState('');
-    const [loading, setLoading] = useState(false);
     const [loggedInUser, setLoggedInUser] = useState({});
     const [profileUpdated, setProfileUpdated] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const { userName, userEmail, phone, studentId, faculty: studentFaculty, department } = loggedInUser;
 
@@ -170,6 +170,7 @@ const UpdateProfile = () => {
     }, [faculty]);
 
     useEffect(() => {
+        setLoading(true);
         fetch(`http://localhost:5000/userInfo/${user?.email}`, {
             method: 'GET',
             headers: {
@@ -186,7 +187,8 @@ const UpdateProfile = () => {
                 else {
                     setProfileUpdated(false);
                 }
-            })
+            });
+        setLoading(false);
     }, [user.email]);
 
 

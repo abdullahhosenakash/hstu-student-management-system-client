@@ -1,6 +1,5 @@
 import React from 'react';
-import { Container, Nav, Navbar } from 'react-bootstrap';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import CustomLink from './CustomLink';
 import './StudentPanel.css';
 
@@ -11,9 +10,8 @@ const StudentPanel = () => {
                 <h2 className="display-6 text-center parent-heading">Student Panel</h2>
                 <nav className='d-flex nav-menu'>
                     <CustomLink to='/studentPanel/home'><span>HOME</span></CustomLink>
-                    <CustomLink to='/studentPanel'><span>REVIEWS</span></CustomLink>
-                    <CustomLink to='/studentPanel/'><span>DASHBOARD</span></CustomLink>
-                    <CustomLink to='/studentPanel'><span>BLOGS</span></CustomLink>
+                    <CustomLink to='/studentPanel/enrollment'><span>ENROLLMENT</span></CustomLink>
+                    <CustomLink to='/studentPanel/result'><span>RESULT</span></CustomLink>
                     <CustomLink to='/studentPanel/userProfile'><span>PROFILE</span></CustomLink>
                 </nav>
             </div>
