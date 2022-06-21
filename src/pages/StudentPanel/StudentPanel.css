@@ -1,0 +1,47 @@
+.parent-route {
+    padding-bottom: 20px;
+    top: 55px !important;
+    background-color: white;
+}
+
+.nav-menu {
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-menu span {
+    font-weight: 700;
+}
+
+@media only screen and (max-width: 992px) {
+
+    .header-margin {
+        margin-top: 18%;
+    }
+
+    .margin-top {
+        position: relative;
+        top: 120px;
+    }
+
+    .parent-route {
+        padding-bottom: 0px;
+        position: fixed !important;
+        background-color: white;
+    }
+
+    .parent-heading {
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+
+    .nav-menu {
+        flex-wrap: wrap;
+        height: 72px !important;
+        align-items: flex-start;
+    }
+
+    .custom-link {
+        padding-bottom: 2px !important;
+    }
+}

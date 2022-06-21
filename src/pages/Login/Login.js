@@ -59,7 +59,7 @@ const Login = () => {
                     Login
                 </Button>
             </Form>
-            {role === 'student' && <p className='mt-2'>Don't have an account? <Link to='/signup' className="text-decoration-none ms-1">Sign Up</Link>
+            {role === 'student' && <p className='mt-2'>Don't have an account? <Link to='/signup' state={{ role }} className="text-decoration-none ms-1">Sign Up</Link>
             </p>}
         </div>
     );
