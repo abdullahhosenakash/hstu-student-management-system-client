@@ -8,7 +8,9 @@ const Result = () => {
     const [user] = useAuthState(auth);
     const [result, setResult] = useState({});
     const [loggedInUser, setLoggedInUser] = useState({});
+    const [levelSemester, setLevelSemester] = useState({});
     const [profileUpdated, setProfileUpdated] = useState(false);
+    // const theoryResults = result.result?.theory;
 
     useEffect(() => {
         fetch(`http://localhost:5000/userInfo/${user?.email}`, {
@@ -19,7 +21,6 @@ const Result = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data.userEmail) {
                     setProfileUpdated(true);
                     setLoggedInUser(data);
@@ -34,8 +35,8 @@ const Result = () => {
         event.preventDefault();
         const level = event.target.level.value;
         const semester = event.target.semester.value;
+        setLevelSemester({ level, semester });
         const studentId = loggedInUser.studentId;
-        console.log(level, semester)
         const url = `http://localhost:5000/results/&${studentId}&${level}&${semester}`;
 
         fetch(url, {
@@ -45,8 +46,9 @@ const Result = () => {
             }
         })
             .then(res => res.json())
-            .then(data => console.log(data));
+            .then(data => setResult(data));
     }
+    console.log(result);
     return (
         <div className='result mx-auto mb-5'>
             <div className="d-flex flex-lg-row flex-column">
@@ -79,52 +81,47 @@ const Result = () => {
                 </div>
 
                 <div className="result-subsection">
-                    <h2 className="result-text mt-5 d-none">Please Select level and semester to see your result</h2>
-                    <h5 className="text-center text-muted">Theory Courses</h5>
-                    <Table responsive striped bordered hover variant="">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Username</th>
-                                <th>Username</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                            </tr>
+                    <h2 className={`result-text ${result.result ? 'd-none' : 'd-block'}`}>Please Select level and semester to see your result</h2>
+                    <div className={result.result ? 'd-block' : 'd-none'}>
+                        <h5 className="text-center text-muted d-flex flex-lg-row flex-column justify-content-center">
+                            <span>
+                                Name of the Examination: <span className='me-4'>{result.nameOfTheExam}</span>
+                            </span>
+                            <span>
+                                <span className='me-2'>Level-{levelSemester.level}</span>
+                                <span className='me-3'>Semester-{levelSemester.semester}</span>
+                                Exam <span>{result.examYear}</span>
+                            </span>
+                        </h5>
+                        <h5 className='text-center text-muted'>Obtained GPA: {result.GPA}</h5>
+                        <Table responsive striped bordered hover variant="" className='table-width'>
+                            <thead className='text-center'>
+                                {
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>Course Title</th>
+                                        <th className=''>Course Code</th>
+                                        <th>Letter Grade</th>
+                                        <th>Grade Point</th>
+                                    </tr>
+                                }
 
-                        </tbody>
-                    </Table>
+                            </thead>
+                            <tbody>
+                                {
+                                    result.result?.map((singleCourseResult, index) => <tr key={index}>
+                                        <td className='text-center'>{index}</td>
+                                        <td className='course-title'>{singleCourseResult.courseTitle}</td>
+                                        <td className='text-center'>{singleCourseResult.courseCode}</td>
+                                        <td className='text-center'>{singleCourseResult.letterGrade}</td>
+                                        <td className='text-center'>{singleCourseResult.gradePoint}</td>
+                                    </tr>
+                                    )
+                                }
 
-                    <h5 className="text-center text-muted">Sessional Courses</h5>
-                    <Table responsive striped bordered hover variant="">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Username</th>
-                                <th>Username</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                            </tr>
-
-                        </tbody>
-                    </Table>
+                            </tbody>
+                        </Table>
+                    </div>
                 </div>
             </div>
         </div>
