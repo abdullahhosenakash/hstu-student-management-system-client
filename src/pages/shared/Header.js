@@ -36,6 +36,7 @@ const Header = () => {
                                             signOut(auth);
                                             localStorage.removeItem('accessToken');
                                             localStorage.removeItem('profileUpdated');
+                                            localStorage.removeItem('role');
                                         }}>Sign Out</Nav.Link>
                                     </>
                                     :

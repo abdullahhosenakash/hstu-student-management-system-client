@@ -65,17 +65,18 @@ const Result = () => {
                     <div className="result-subsection">
                         <h2 className={`result-text ${result.result ? 'd-none' : 'd-block'}`}>Please Select level and semester to see your result</h2>
                         <div className={result.result ? 'd-block' : 'd-none'}>
-                            <h5 className="text-center text-muted d-flex flex-lg-row flex-column justify-content-center">
+                            <h6 className="text-center text-muted d-flex flex-lg-row flex-column justify-content-center">
                                 <span>
                                     Name of the Examination: <span className='me-4'>{result.nameOfTheExam}</span>
                                 </span>
                                 <span>
                                     <span className='me-2'>Level-{levelSemester.level}</span>
                                     <span className='me-3'>Semester-{levelSemester.semester}</span>
-                                    Exam-<span>{result.examYear}</span>
+                                    <span className='me-3'>Exam-{result.examYear}</span>
                                 </span>
-                            </h5>
-                            <h5 className='text-center text-muted'>Obtained GPA: {result.GPA}</h5>
+                                <span>Obtained GPA: {result.GPA}</span>
+                            </h6>
+                            {/* <h6 className='text-center text-muted'>Obtained GPA: {result.GPA}</h6> */}
                             <Table responsive striped bordered hover variant="" className='table-width'>
                                 <thead className='text-center'>
                                     {

@@ -20,6 +20,10 @@
     margin-left: 1%;
 }
 
+.reset-button {
+    cursor: pointer;
+}
+
 @media only screen and (max-width: 992px) {
     .sign-up-page {
         width: 90%;

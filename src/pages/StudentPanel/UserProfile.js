@@ -171,29 +171,6 @@ const UpdateProfile = () => {
         }
     }, [faculty]);
 
-    // useEffect(() => {
-    //     setLoading(true);
-    //     fetch(`http://localhost:5000/userInfo/${user?.email}`, {
-    //         method: 'GET',
-    //         headers: {
-    //             'authorization': `Bearer ${localStorage.getItem('accessToken')}`
-    //         }
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             console.log(data);
-    //             if (data.userEmail) {
-    //                 setProfileUpdated(true);
-    //                 setLoggedInUser(data);
-    //             }
-    //             else {
-    //                 setProfileUpdated(false);
-    //             }
-    //         });
-    //     setLoading(false);
-    // }, [user.email]);
-
-
     if (loading) {
         return <Loading />
     }
@@ -221,6 +198,7 @@ const UpdateProfile = () => {
                 if (res.status === 401 || res.status === 403) {
                     localStorage.removeItem('accessToken');
                     localStorage.removeItem('profileUpdated');
+                    localStorage.removeItem('role');
                     signOut(auth);
                     return;
                 }

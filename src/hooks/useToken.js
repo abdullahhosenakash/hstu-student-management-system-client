@@ -6,10 +6,11 @@ const useToken = () => {
     const [user] = useAuthState(auth);
     const [token, setToken] = useState('');
     const [loggedInUser, setLoggedInUser] = useState({});
+    const role = localStorage.getItem('role');
 
     useEffect(() => {
         const userEmail = user?.email;
-        userEmail && fetch(`http://localhost:5000/user-login/${userEmail}`, {
+        userEmail && fetch(`http://localhost:5000/user-login/${userEmail}&${role}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

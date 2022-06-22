@@ -1,0 +1,136 @@
+[
+    {
+        "studentId": "1802102",
+        "studentName": "Mobashwerul Islam",
+        "department": "ece",
+        "level": "1",
+        "semester": "II",
+        "nameOfTheExam": "B.Sc (Engineering) in ECE",
+        "examYear": "2018",
+        "session": "2018",
+        "result": [
+            {
+                "courseCode": "ECE 151",
+                "courseTitle": "Electronics-I",
+                "letterGrade": "C",
+                "gradePoint": "2.25"
+            },
+            {
+                "courseCode": "ECE 152",
+                "courseTitle": "Electronics-I Sessional",
+                "letterGrade": "B+",
+                "gradePoint": "3.25"
+            },
+            {
+                "courseCode": "EEE 157",
+                "courseTitle": "Electrical Drives",
+                "letterGrade": "F",
+                "gradePoint": "0.00"
+            },
+            {
+                "courseCode": "EEE 158",
+                "courseTitle": "Electrical Drives Sessional",
+                "letterGrade": "A-",
+                "gradePoint": "3.50"
+            },
+            {
+                "courseCode": "AIE 110",
+                "courseTitle": "Mechanical Engineering Drawing",
+                "letterGrade": "A-",
+                "gradePoint": "3.50"
+            },
+            {
+                "courseCode": "PHY 111",
+                "courseTitle": "Engineering Physics",
+                "letterGrade": "B+",
+                "gradePoint": "3.25"
+            },
+            {
+                "courseCode": "PHY 112",
+                "courseTitle": "Engineering Physics Sessional",
+                "letterGrade": "B-",
+                "gradePoint": "2.75"
+            },
+            {
+                "courseCode": "MAT 113",
+                "courseTitle": "Ordinary & Partial Differential Equations and Matrix",
+                "letterGrade": "D",
+                "gradePoint": "2.00"
+            },
+            {
+                "courseCode": "ECN 129",
+                "courseTitle": "Economics",
+                "letterGrade": "A-",
+                "gradePoint": "3.50"
+            }
+        ],
+        "GPA": "2.83"
+    },
+    {
+        "studentId": "1802103",
+        "studentName": "Md Abdullah Hosen",
+        "department": "ece",
+        "level": "1",
+        "semester": "II",
+        "nameOfTheExam": "B.Sc (Engineering) in ECE",
+        "examYear": "2018",
+        "session": "2018",
+        "result": [
+            {
+                "courseCode": "ECE 151",
+                "courseTitle": "Electronics-I",
+                "letterGrade": "F",
+                "gradePoint": "0.00"
+            },
+            {
+                "courseCode": "ECE 152",
+                "courseTitle": "Electronics-I Sessional",
+                "letterGrade": "A-",
+                "gradePoint": "3.50"
+            },
+            {
+                "courseCode": "EEE 157",
+                "courseTitle": "Electrical Drives",
+                "letterGrade": "F",
+                "gradePoint": "0.00"
+            },
+            {
+                "courseCode": "EEE 158",
+                "courseTitle": "Electrical Drives Sessional",
+                "letterGrade": "B+",
+                "gradePoint": "3.25"
+            },
+            {
+                "courseCode": "AIE 110",
+                "courseTitle": "Mechanical Engineering Drawing",
+                "letterGrade": "B",
+                "gradePoint": "3.00"
+            },
+            {
+                "courseCode": "PHY 111",
+                "courseTitle": "Engineering Physics",
+                "letterGrade": "C+",
+                "gradePoint": "2.50"
+            },
+            {
+                "courseCode": "PHY 112",
+                "courseTitle": "Engineering Physics Sessional",
+                "letterGrade": "D",
+                "gradePoint": "2.00"
+            },
+            {
+                "courseCode": "MAT 113",
+                "courseTitle": "Ordinary & Partial Differential Equations and Matrix",
+                "letterGrade": "C",
+                "gradePoint": "2.25"
+            },
+            {
+                "courseCode": "ECN 129",
+                "courseTitle": "Economics",
+                "letterGrade": "B-",
+                "gradePoint": "2.75"
+            }
+        ],
+        "GPA": "2.64"
+    }
+]
