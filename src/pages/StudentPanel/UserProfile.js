@@ -8,6 +8,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import Loading from '../shared/Loading';
 import { signOut } from 'firebase/auth';
 import { toast } from 'react-toastify';
+import useToken from '../../hooks/useToken';
 
 const UpdateProfile = () => {
     const [user] = useAuthState(auth);
@@ -15,11 +16,12 @@ const UpdateProfile = () => {
     const [dept, setDept] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
     const [studentIdCardURL, setStudentIdCardURL] = useState('');
-    const [loggedInUser, setLoggedInUser] = useState({});
-    const [profileUpdated, setProfileUpdated] = useState(false);
+    const { loggedInUser } = useToken();
+    // const [profileUpdated, setProfileUpdated] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const { userName, userEmail, phone, studentId, faculty: studentFaculty, department } = loggedInUser;
+    const { userName, userEmail, phone, studentId, faculty: studentFaculty, department } = loggedInUser || {};
+    const isProfileUpdated = localStorage.getItem('profileUpdated');
 
     useEffect(() => {
         let department;
@@ -169,27 +171,27 @@ const UpdateProfile = () => {
         }
     }, [faculty]);
 
-    useEffect(() => {
-        setLoading(true);
-        fetch(`http://localhost:5000/userInfo/${user?.email}`, {
-            method: 'GET',
-            headers: {
-                'authorization': `Bearer ${localStorage.getItem('accessToken')}`
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                if (data.userEmail) {
-                    setProfileUpdated(true);
-                    setLoggedInUser(data);
-                }
-                else {
-                    setProfileUpdated(false);
-                }
-            });
-        setLoading(false);
-    }, [user.email]);
+    // useEffect(() => {
+    //     setLoading(true);
+    //     fetch(`http://localhost:5000/userInfo/${user?.email}`, {
+    //         method: 'GET',
+    //         headers: {
+    //             'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+    //         }
+    //     })
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             console.log(data);
+    //             if (data.userEmail) {
+    //                 setProfileUpdated(true);
+    //                 setLoggedInUser(data);
+    //             }
+    //             else {
+    //                 setProfileUpdated(false);
+    //             }
+    //         });
+    //     setLoading(false);
+    // }, [user.email]);
 
 
     if (loading) {
@@ -218,6 +220,7 @@ const UpdateProfile = () => {
             .then(res => {
                 if (res.status === 401 || res.status === 403) {
                     localStorage.removeItem('accessToken');
+                    localStorage.removeItem('profileUpdated');
                     signOut(auth);
                     return;
                 }
@@ -256,8 +259,8 @@ const UpdateProfile = () => {
                         body: JSON.stringify(updatedUser)
                     })
                         .then(res => res.json())
-                        .then(data => {
-                            setProfileUpdated(true);
+                        .then(() => {
+                            localStorage.setItem('profileUpdated', true)
                             toast.success('Profile Updated Successfully!');
                         });
                 }
@@ -265,8 +268,8 @@ const UpdateProfile = () => {
     }
     return (
         <div className='update-profile mx-auto mb-5'>
-            <h3 className='fs-3 text-center'>{profileUpdated ? 'Profile Information' : 'Update Your Profile'}</h3>
-            {profileUpdated ?
+            <h3 className='fs-3 text-center'>{isProfileUpdated === 'true' ? 'Profile Information' : 'Update Your Profile'}</h3>
+            {isProfileUpdated === 'true' ?
                 <div className="">
                     <FloatingLabel
                         label="Name"

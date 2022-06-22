@@ -5,6 +5,8 @@ import auth from '../firebase.init';
 const useToken = () => {
     const [user] = useAuthState(auth);
     const [token, setToken] = useState('');
+    const [loggedInUser, setLoggedInUser] = useState({});
+
     useEffect(() => {
         const userEmail = user?.email;
         userEmail && fetch(`http://localhost:5000/user-login/${userEmail}`, {
@@ -17,9 +19,17 @@ const useToken = () => {
             .then(data => {
                 localStorage.setItem('accessToken', data.token);
                 setToken(data.token);
+                setLoggedInUser(data.user);
+                if (data.user?.userEmail) {
+                    localStorage.setItem('profileUpdated', true);
+                }
+                else {
+                    localStorage.setItem('profileUpdated', false);
+
+                }
             });
     }, [user?.email])
-    return [token];
+    return { token, loggedInUser };
 };
 
 export default useToken;

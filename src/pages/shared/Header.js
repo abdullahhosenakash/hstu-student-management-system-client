@@ -32,7 +32,11 @@ const Header = () => {
                                 user ?
                                     <>
                                         <Nav.Link className='text-white'>{user.displayName}</Nav.Link>
-                                        <Nav.Link onClick={() => signOut(auth)}>Sign Out</Nav.Link>
+                                        <Nav.Link onClick={() => {
+                                            signOut(auth);
+                                            localStorage.removeItem('accessToken');
+                                            localStorage.removeItem('profileUpdated');
+                                        }}>Sign Out</Nav.Link>
                                     </>
                                     :
                                     <>

@@ -13,7 +13,7 @@ const SignUp = () => {
     const { role } = location.state;
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
-    const [token] = useToken();
+    const { token } = useToken();
     const [
         createUserWithEmailAndPassword,
         ,

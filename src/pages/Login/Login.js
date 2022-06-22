@@ -11,7 +11,7 @@ import useToken from '../../hooks/useToken';
 
 
 const Login = () => {
-    const [token] = useToken();
+    const { token } = useToken();
     const location = useLocation();
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
