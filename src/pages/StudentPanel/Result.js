@@ -5,8 +5,10 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 import auth from '../../firebase.init';
 import useToken from '../../hooks/useToken';
+import useVerifyRole from '../../hooks/useVerifyRole';
 
 const Result = () => {
+    useVerifyRole('student');
     const [result, setResult] = useState({});
     const { loggedInUser } = useToken();
     const [levelSemester, setLevelSemester] = useState({});

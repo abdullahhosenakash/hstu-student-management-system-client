@@ -14,12 +14,12 @@ import { toast } from 'react-toastify';
 const Login = () => {
     const { token } = useToken();
     const location = useLocation();
+    const { role } = location.state;
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
     const [email, setEmail] = useState('');
-    let whoAreYou;
-    location.state?.role ? whoAreYou = location.state : whoAreYou = { role: 'student' };
-    const { role } = whoAreYou;
+
+    console.log(role);
 
     const [
         signInWithEmailAndPassword,
@@ -38,8 +38,9 @@ const Login = () => {
                 setErrorMessage(error.message);
             }
         }
-        token && navigate(`${role === 'admin' ? '/adminPanel' : '/studentPanel'}`);
-    }, [error, token, navigate, role])
+        const from = location?.state?.from?.pathname || `${role === 'admin' ? '/adminPanel' : '/studentPanel'}`;
+        token && navigate(from, { replace: true });
+    }, [error, token, navigate, role, location?.state?.from?.pathname])
 
     if (loading) {
         // return <Loading />
@@ -57,12 +58,21 @@ const Login = () => {
                 .then(data => {
                     if (data === 1) {
                         signInWithEmailAndPassword(email, password)
-                            .then(() => localStorage.setItem('role', role));
+                            .then(() => {
+                                console.log('role');
+                                localStorage.setItem('role', '61646D696E');
+                                console.log(localStorage.getItem('role'))
+                            });
                     }
                     else {
                         setErrorMessage('Wrong Credential! Please check your email and secret key');
                     }
                 })
+            // console.log(localStorage.getItem('role'))
+        }
+        else if (role === 'student') {
+            signInWithEmailAndPassword(email, password)
+                .then(() => localStorage.setItem('role', '73747564656E74'));
         }
 
         if (error) {

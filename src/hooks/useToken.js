@@ -10,26 +10,27 @@ const useToken = () => {
 
     useEffect(() => {
         const userEmail = user?.email;
-        userEmail && fetch(`http://localhost:5000/user-login/${userEmail}&${role}`, {
-            method: 'PUT',
-            headers: {
-                'content-type': 'application/json'
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                localStorage.setItem('accessToken', data.token);
-                setToken(data.token);
-                setLoggedInUser(data.user);
-                if (data.user?.userEmail) {
-                    localStorage.setItem('profileUpdated', true);
+        if (role === '61646D696E' || role === '73747564656E74') {
+            userEmail && fetch(`http://localhost:5000/user-login/${userEmail}&${role}`, {
+                method: 'PUT',
+                headers: {
+                    'content-type': 'application/json'
                 }
-                else {
-                    localStorage.setItem('profileUpdated', false);
-
-                }
-            });
-    }, [user?.email])
+            })
+                .then(res => res.json())
+                .then(data => {
+                    localStorage.setItem('accessToken', data.token);
+                    setToken(data.token);
+                    setLoggedInUser(data.user);
+                    if (data.user?.userEmail) {
+                        localStorage.setItem('profileUpdated', true);
+                    }
+                    else {
+                        localStorage.setItem('profileUpdated', false);
+                    }
+                });
+        }
+    }, [user?.email, role])
     return { token, loggedInUser };
 };
 

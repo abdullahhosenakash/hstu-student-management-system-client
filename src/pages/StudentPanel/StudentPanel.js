@@ -1,9 +1,11 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
+import useVerifyRole from '../../hooks/useVerifyRole';
 import CustomLink from './CustomLink';
 import './StudentPanel.css';
 
 const StudentPanel = () => {
+    useVerifyRole('student');
     return (
         <div className='header-margin'>
             <div className="parent-route sticky-top">

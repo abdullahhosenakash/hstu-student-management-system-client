@@ -33,18 +33,18 @@ const Header = () => {
                                     <>
                                         <Nav.Link className='text-white'>{user.displayName}</Nav.Link>
                                         <Nav.Link onClick={() => {
-                                            signOut(auth);
                                             localStorage.removeItem('accessToken');
                                             localStorage.removeItem('profileUpdated');
                                             localStorage.removeItem('role');
+                                            signOut(auth);
                                         }}>Sign Out</Nav.Link>
                                     </>
                                     :
                                     <>
-                                        <Nav.Link as={Link} to='/login' state={{ role: 'student' }}>Login</Nav.Link>
+                                        {/* <Nav.Link as={Link} to='/login' state={{ role: 'student' }}>Login</Nav.Link>
                                         <Nav.Link as={Link} to='/signup' state={{ role: 'student' }}>
                                             Sign Up
-                                        </Nav.Link>
+                                        </Nav.Link> */}
                                     </>
                             }
                         </Nav>

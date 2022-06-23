@@ -1,6 +1,6 @@
 import React from 'react';
 import error from '../../images/404.jpg';
-import './NotFound.css';
+import './Errors.css';
 
 const NotFound = () => {
     return (

@@ -9,8 +9,10 @@ import Loading from '../shared/Loading';
 import { signOut } from 'firebase/auth';
 import { toast } from 'react-toastify';
 import useToken from '../../hooks/useToken';
+import useVerifyRole from '../../hooks/useVerifyRole';
 
 const UpdateProfile = () => {
+    useVerifyRole('student');
     const [user] = useAuthState(auth);
     const [faculty, setFaculty] = useState('');
     const [dept, setDept] = useState([]);

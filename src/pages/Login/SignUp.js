@@ -39,6 +39,7 @@ const SignUp = () => {
         createUserWithEmailAndPassword(userEmail, password)
             .then(async () => {
                 await updateProfile({ displayName: userName });
+                localStorage.setItem('role', '73747564656E74');
             });
     }
 
@@ -68,7 +69,7 @@ const SignUp = () => {
                     Sign Up
                 </Button>
             </Form>
-            <p className='mt-2'>Already have an account? <Link to='/login' className="text-decoration-none ms-1" state={{ role: 'student' }}>Login</Link></p>
+            <p className='mt-2'>Already have an account? <Link to='/login' className="text-decoration-none ms-1" state={{ role }}>Login</Link></p>
         </div>
     );
 };

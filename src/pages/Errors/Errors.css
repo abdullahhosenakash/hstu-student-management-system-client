@@ -11,6 +11,10 @@
     font-size: 40px;
 }
 
+.margin-top {
+    margin-top: 100px;
+}
+
 @media only screen and (max-width: 992px) {
     .oops {
         font-size: 40px;
@@ -22,5 +26,9 @@
 
     .page-not-found {
         font-size: 30px;
+    }
+
+    .margin-top {
+        margin-top: 0px;
     }
 }
