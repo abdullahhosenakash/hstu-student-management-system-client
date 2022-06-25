@@ -99,6 +99,96 @@ const useCourses = (department, level, semester) => {
                         ]);
                         break;
 
+                    case '2I':
+                        setCourses([
+                            {
+                                courseCode: 'ECE 202',
+                                courseTitle: 'Electronic Circuit Design Sessional'
+                            },
+                            {
+                                courseCode: 'ECE 203',
+                                courseTitle: 'Electronics-II'
+                            },
+                            {
+                                courseCode: 'ECE 204',
+                                courseTitle: 'Electronics-II Sessional'
+                            },
+                            {
+                                courseCode: 'ECE 205',
+                                courseTitle: 'Signals and Systems'
+                            },
+                            {
+                                courseCode: 'ECE 206',
+                                courseTitle: 'Signals and Systems Sessional'
+                            },
+                            {
+                                courseCode: 'CSE 211',
+                                courseTitle: 'Data Structures and Algorithms'
+                            },
+                            {
+                                courseCode: 'CSE 212',
+                                courseTitle: 'Data Structures and Algorithms Sessional'
+                            },
+                            {
+                                courseCode: 'MAT 203',
+                                courseTitle: 'Vector Analysis and Operational Calculus'
+                            },
+                            {
+                                courseCode: 'ACT 209',
+                                courseTitle: 'Financial and Manegerial Accounting '
+                            }
+                        ]);
+                        break;
+
+                    case '2II':
+                        setCourses([
+                            {
+                                courseCode: 'ECE 251',
+                                courseTitle: 'Digital Logic Design'
+                            },
+                            {
+                                courseCode: 'ECE 252',
+                                courseTitle: 'Digital Logic Design Sessional'
+                            },
+                            {
+                                courseCode: 'ECE 253',
+                                courseTitle: 'Electromagnetic Fields & Waves'
+                            },
+                            {
+                                courseCode: 'ECE 255',
+                                courseTitle: 'Analog Communications'
+                            },
+                            {
+                                courseCode: 'ECE 256',
+                                courseTitle: 'Analog Communications Sessional'
+                            },
+                            {
+                                courseCode: 'ECE 257',
+                                courseTitle: 'Industrial Electronics'
+                            },
+                            {
+                                courseCode: 'ECE 258',
+                                courseTitle: 'Industrial Electronics Sessional'
+                            },
+                            {
+                                courseCode: 'CSE 261',
+                                courseTitle: 'Object Oriented and Internet Programming'
+                            },
+                            {
+                                courseCode: 'CSE 262',
+                                courseTitle: 'Object Oriented and Internet Programming Sessional'
+                            },
+                            {
+                                courseCode: 'STT 211',
+                                courseTitle: 'Engineering Statistics and Complex Variables'
+                            },
+                            {
+                                courseCode: 'ECE 200',
+                                courseTitle: 'Industrial Tour'
+                            }
+                        ]);
+                        break;
+
                     default:
                 }
                 break;

@@ -1,13 +1,15 @@
 import { signOut } from 'firebase/auth';
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
-import { Button, FloatingLabel, Form } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import auth from '../../firebase.init';
 import useCourses from '../../hooks/useCourses';
 import useDegree from '../../hooks/useDegree';
 import useDept from '../../hooks/useDept';
-import useObtainedGradePoint from '../../hooks/useObtainedGradePoint';
 import './AdminPanel.css';
+import CourseResult from './CourseResult';
 
 const UpdateResult = () => {
     const [errorMessage, setErrorMessage] = useState();
@@ -15,9 +17,45 @@ const UpdateResult = () => {
     const [degree] = useDegree(batchInfo?.department);
     const [faculty, setFaculty] = useState('');
     const [dept] = useDept(faculty);
-    const [letterGrade, setLetterGrade] = useState('');
-    const [obtainedGradePoint] = useObtainedGradePoint(letterGrade);
     const [courses] = useCourses(batchInfo?.department, batchInfo?.level, batchInfo?.semester);
+    const [result, setResult] = useState([]);
+    const [reset, setReset] = useState(false);
+    const [studentIdNo, setStudentIdNo] = useState('');
+    const [studentName, setStudentName] = useState('');
+
+    useEffect(() => {
+        if (studentIdNo.length === 7) {
+            fetch(`http://localhost:5000/studentInfo/${studentIdNo}`, {
+                method: 'GET',
+                headers: {
+                    'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            })
+                .then(res => {
+                    if (res.status === 401 || res.status === 403) {
+                        localStorage.removeItem('accessToken');
+                        localStorage.removeItem('profileUpdated');
+                        localStorage.removeItem('role');
+                        signOut(auth);
+                        return;
+                    }
+                    else {
+                        return res.json();
+                    }
+                })
+                .then(data => {
+                    if (data.studentName) {
+                        setStudentName(data.studentName);
+                    }
+                    else {
+                        setStudentName('');
+                    }
+                })
+        }
+        else {
+            setStudentName('');
+        }
+    }, [studentIdNo])
 
     const handleProceedToResultUpdate = event => {
         event.preventDefault();
@@ -32,53 +70,81 @@ const UpdateResult = () => {
         console.log(batchInfo);
         setBatchInfo(batchInfo);
         event.target.reset();
-
-        // const url = `http://localhost:5000/updateResult/${studentId}`;
-
-        // fetch('', {
-        //     method: 'GET',
-        //     headers: {
-        //         'authorization': `Bearer ${localStorage.getItem('accessToken')}`
-        //     }
-        // })
-        //     .then(res => {
-        //         if (res.status === 401 || res.status === 403) {
-        //             localStorage.removeItem('accessToken');
-        //             localStorage.removeItem('profileUpdated');
-        //             localStorage.removeItem('role');
-        //             signOut(auth);
-        //             return;
-        //         }
-        //         else if (res.status === 404) {
-        //             setErrorMessage('Student ID Number is invalid');
-        //             return;
-        //         }
-        //         else {
-        //             return res.json();
-        //         }
-        //     })
-
-        //             else {
-        // localStorage.removeItem('accessToken');
-        // signOut(auth);
-        // return;
     }
-    console.log(degree);
 
     const handleUpdateResult = event => {
         event.preventDefault();
         // setLoading(true);
-        const faculty = event.target.faculty.value;
-        const department = event.target.department.value;
-        const level = event.target.level.value;
-        const semester = event.target.semester.value;
-        const session = event.target.session.value;
-        const examYear = event.target.examYear.value;
-        const batchInfo = { faculty, department, level, semester, session, examYear };
-        console.log(batchInfo);
-        setBatchInfo(batchInfo);
-        event.target.reset();
+        const studentId = event.target.studentId.value;
+        const studentName = event.target.studentName.value;
+        const obtainedGPA = event.target.obtainedGPA.value;
+
+
+        const courseResult = courses.map(course => {
+            const available = result.find(c => c.courseCode === course.courseCode);
+            return available;
+        });
+        const studentResult = {
+            studentId,
+            studentName,
+            department: batchInfo.department,
+            level: batchInfo.level,
+            semester: batchInfo.semester,
+            nameOfTheExam: degree,
+            examYear: batchInfo.examYear,
+            session: batchInfo.session,
+            result: courseResult,
+            GPA: obtainedGPA
+        }
+        console.log(studentResult);
+
+        fetch('http://localhost:5000/updateResult', {
+            method: 'POST',
+            headers: {
+                'authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(studentResult)
+        })
+            .then(res => {
+                if (res.status === 401 || res.status === 403) {
+                    localStorage.removeItem('accessToken');
+                    localStorage.removeItem('profileUpdated');
+                    localStorage.removeItem('role');
+                    signOut(auth);
+                    return;
+                }
+                else if (res.status === 404) {
+                    setErrorMessage('Failed to update result');
+                    return;
+                }
+                else {
+                    return res.json();
+                }
+            })
+            .then(data => {
+                console.log(data);
+                setReset(true);
+                setResult([]);
+                event.target.reset();
+                setStudentName('');
+                toast.success('Result updated successfully!');
+            })
+
     }
+
+    const handleCourseResult = courseResult => {
+        const isAvailable = result.find(course => course.courseCode === courseResult.courseCode);
+        if (isAvailable) {
+            const restCourses = result.filter(course => course.courseCode !== courseResult.courseCode);
+            setResult([...restCourses, courseResult]);
+        }
+        else {
+            setResult([...result, courseResult])
+        }
+    }
+    console.log(result)
+
 
     return (
         <div className='mb-5'>
@@ -161,55 +227,35 @@ const UpdateResult = () => {
                     </span>
                 </h6>
 
-                <Form onSubmit={handleUpdateResult}>
+                <Form onSubmit={handleUpdateResult} onClick={() => setReset(false)}>
                     <Form.Group className="mb-3" controlId="studentId">
                         <Form.Label>Student ID No</Form.Label>
-                        <Form.Control type="number" name='studentId' placeholder="Enter Student ID No" required onWheel={e => e.target.blur()} />
+                        <Form.Control type="number" name='studentId' placeholder="Enter Student ID No" required onWheel={e => e.target.blur()} onChange={e => setStudentIdNo(e.target.value)} />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="studentName">
                         <Form.Label>Student Name</Form.Label>
-                        <Form.Control type="text" name='studentName' placeholder="Enter Student Name" required />
+                        <Form.Control type="text" name='studentName' placeholder="Enter Student Name" value={studentName ? studentName : ''} disabled={studentName} required />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="obtainedGPA">
                         <Form.Label>Obtained GPA</Form.Label>
-                        <Form.Control type="number" name='obtainedGPA' placeholder="Enter Obtained GPA" required onWheel={e => e.target.blur()} />
+                        <Form.Control type="number" step='0.01' name='obtainedGPA' placeholder="Enter Obtained GPA" required onWheel={e => e.target.blur()} />
                     </Form.Group>
 
                     {
-                        courses.map((course, index) =>
-                            <div className='border border-2 border-secondary rounded-3 my-3 p-2' key={index}>
-                                <p className='my-0 fw-bold fs-5'>Course Code: {course.courseCode}</p>
-                                <Form.Group controlId="level" className='half-input-field left-field'>
-                                    <Form.Label className='mb-1'>Letter Grade</Form.Label>
-                                    <Form.Select aria-label="Floating label select example" name='level' required onChange={e => setLetterGrade(e.target.value)}>
-                                        <option value="">- - Select Letter Grade - -</option>
-                                        <option value="A+">A+</option>
-                                        <option value="A">A</option>
-                                        <option value="A-">A-</option>
-                                        <option value="B+">B+</option>
-                                        <option value="B">B</option>
-                                        <option value="B-">B-</option>
-                                        <option value="C+">C+</option>
-                                        <option value="C">C</option>
-                                        <option value="D">D</option>
-                                        <option value="F">F</option>
-                                    </Form.Select>
-                                </Form.Group>
-
-                                <Form.Group controlId="semester" className='mb-3 half-input-field right-field'>
-                                    <Form.Label className='mb-1'>Grade Point</Form.Label>
-                                    <Form.Control name='session' placeholder="Obtained Grade Point" disabled value={obtainedGradePoint} />
-                                </Form.Group>
-                            </div>
-                        )
+                        courses.map((course, index) => <CourseResult
+                            key={index}
+                            course={course}
+                            handleCourseResult={handleCourseResult}
+                            reset={reset}
+                        />)
                     }
 
                     {errorMessage && <p className='mt-2 text-danger'>{errorMessage}</p>}
 
                     <Button variant="secondary" type="submit" className='mx-auto d-block'>
-                        Proceed to Result Update
+                        Update Result
                     </Button>
                 </Form>
 
@@ -220,3 +266,4 @@ const UpdateResult = () => {
 };
 
 export default UpdateResult;
+

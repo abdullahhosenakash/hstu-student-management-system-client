@@ -5,15 +5,15 @@ const useDegree = (department) => {
     useEffect(() => {
         switch (department) {
             case 'cse':
-                setDegree('B.Sc Engineering in CSE');
+                setDegree('B.Sc (Engineering) in CSE');
                 break;
 
             case 'ece':
-                setDegree('B.Sc Engineering in ECE');
+                setDegree('B.Sc (Engineering) in ECE');
                 break;
 
             case 'eee':
-                setDegree('B.Sc Engineering in EEE');
+                setDegree('B.Sc (Engineering) in EEE');
                 break;
 
             default:
