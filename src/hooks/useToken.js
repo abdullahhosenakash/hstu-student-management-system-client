@@ -8,12 +8,14 @@ const useToken = () => {
     const [token, setToken] = useState('');
     const [loggedInUser, setLoggedInUser] = useState({});
     const role = localStorage.getItem('role');
+    // https://hidden-sea-34919.herokuapp.com/
+    // http://localhost:5000/
 
     useEffect(() => {
         setTokenLoading(true);
         const userEmail = user?.email;
         if (role === '61646D696E' || role === '73747564656E74') {
-            userEmail && fetch(`http://localhost:5000/user-login/${userEmail}&${role}`, {
+            userEmail && fetch(`https://hidden-sea-34919.herokuapp.com/user-login/${userEmail}&${role}`, {
                 method: 'PUT',
                 headers: {
                     'content-type': 'application/json'
