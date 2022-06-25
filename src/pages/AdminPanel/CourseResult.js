@@ -48,7 +48,7 @@ const CourseResult = ({ course, handleCourseResult, reset }) => {
 
             <Form.Group controlId={`gradePointFor${courseCodeWithoutSpace}`} className='mb-3 half-input-field right-field'>
                 <Form.Label className='mb-1'>Grade Point</Form.Label>
-                <Form.Control name={`gradePointFor${courseCodeWithoutSpace}`} placeholder="Obtained Grade Point" disabled value={reset ? '' : obtainedGradePoint} />
+                <Form.Control name={`gradePointFor${courseCodeWithoutSpace}`} placeholder="Obtained Grade Point" disabled defaultValue={reset ? '' : obtainedGradePoint} />
             </Form.Group>
         </div>
     );

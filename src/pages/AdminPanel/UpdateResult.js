@@ -12,7 +12,7 @@ import './AdminPanel.css';
 import CourseResult from './CourseResult';
 
 const UpdateResult = () => {
-    const [errorMessage, setErrorMessage] = useState();
+    const [errorMessage, setErrorMessage] = useState('');
     const [batchInfo, setBatchInfo] = useState({});
     const [degree] = useDegree(batchInfo?.department);
     const [faculty, setFaculty] = useState('');
@@ -23,7 +23,9 @@ const UpdateResult = () => {
     const [studentIdNo, setStudentIdNo] = useState('');
     const [studentName, setStudentName] = useState('');
     const currentYear = new Date().getFullYear();
-    const [sessions, setSessions] = useState(0);
+    const [sessions, setSessions] = useState([]);
+    const [selectedSession, setSelectedSession] = useState('');
+    const [examYears, setExamYears] = useState([]);
 
     useEffect(() => {
         let years = [];
@@ -32,6 +34,16 @@ const UpdateResult = () => {
         }
         setSessions(years);
     }, [currentYear]);
+
+    useEffect(() => {
+        if (selectedSession) {
+            let years = [];
+            for (let i = selectedSession; i <= currentYear; i++) {
+                years = [...years, i];
+            }
+            setExamYears(years);
+        }
+    }, [currentYear, selectedSession]);
 
     useEffect(() => {
         if (studentIdNo.length === 7) {
@@ -134,11 +146,16 @@ const UpdateResult = () => {
             })
             .then(data => {
                 console.log(data);
-                setReset(true);
-                setResult([]);
-                event.target.reset();
-                setStudentName('');
-                toast.success('Result updated successfully!');
+                if (data.acknowledged) {
+                    setReset(true);
+                    setResult([]);
+                    event.target.reset();
+                    setStudentName('');
+                    toast.success('Result updated successfully!');
+                }
+                else {
+                    setErrorMessage(data.message);
+                }
             })
 
     }
@@ -153,7 +170,6 @@ const UpdateResult = () => {
             setResult([...result, courseResult])
         }
     }
-    console.log(result)
 
 
 
@@ -180,7 +196,7 @@ const UpdateResult = () => {
 
                     <Form.Group className="mb-3" controlId="studentDepartment">
                         <Form.Label>Department</Form.Label>
-                        <Form.Select aria-label="Department" name='department' required>
+                        <Form.Select aria-label="Department" name='department' required readOnly>
                             <option value=''>- - Select Department - -</option>
                             {
                                 dept?.map((d, index) => <option key={index} value={d.deptValue}>{d.dept}</option>)
@@ -190,7 +206,7 @@ const UpdateResult = () => {
 
                     <Form.Group controlId="level" className='half-input-field left-field mb-3'>
                         <Form.Label>Level</Form.Label>
-                        <Form.Select aria-label="Floating label select example" name='level' required>
+                        <Form.Select aria-label="Floating label select example" name='level' readOnly required>
                             <option value="">- - Select Level - -</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -201,7 +217,7 @@ const UpdateResult = () => {
 
                     <Form.Group controlId="semester" className='mb-3 half-input-field right-field'>
                         <Form.Label>Semester</Form.Label>
-                        <Form.Select aria-label="Floating label select example" name='semester' required>
+                        <Form.Select aria-label="Floating label select example" name='semester' readOnly required>
                             <option value="">- - Select Semester - -</option>
                             <option value="I">I</option>
                             <option value="II">II</option>
@@ -210,7 +226,7 @@ const UpdateResult = () => {
 
                     <Form.Group className="mb-3 half-input-field left-field" controlId="session">
                         <Form.Label>Session</Form.Label>
-                        <Form.Select aria-label="Floating label select example" name='session' required>
+                        <Form.Select aria-label="Floating label select example" name='session' onChange={e => setSelectedSession(e.target.value)} required>
                             <option value="">- - Select Session - -</option>
                             {sessions.map(session => <option
                                 value={session}
@@ -222,12 +238,12 @@ const UpdateResult = () => {
 
                     <Form.Group className="mb-3 half-input-field right-field" controlId="examYear">
                         <Form.Label>Exam Year</Form.Label>
-                        <Form.Select aria-label="Floating label select example" name='examYear' required>
+                        <Form.Select aria-label="Floating label select example" name='examYear' readOnly required>
                             <option value="">- - Select Exam Year - -</option>
-                            {sessions.map(session => <option
-                                value={session}
-                                key={session}
-                            >{session}</option>)
+                            {examYears.map(examYear => <option
+                                value={examYear}
+                                key={examYear}
+                            >{examYear}</option>)
                             }
                         </Form.Select>
                     </Form.Group>
@@ -256,12 +272,12 @@ const UpdateResult = () => {
                 <Form onSubmit={handleUpdateResult} onClick={() => setReset(false)}>
                     <Form.Group className="mb-3" controlId="studentId">
                         <Form.Label>Student ID No</Form.Label>
-                        <Form.Control type="number" name='studentId' placeholder="Enter Student ID No" required onWheel={e => e.target.blur()} onChange={e => setStudentIdNo(e.target.value)} />
+                        <Form.Control type="number" name='studentId' placeholder="Enter Student ID No" required onWheel={e => e.target.blur()} onClick={() => setErrorMessage('')} onChange={e => setStudentIdNo(e.target.value)} />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="studentName">
                         <Form.Label>Student Name</Form.Label>
-                        <Form.Control type="text" name='studentName' placeholder="Enter Student Name" value={studentName ? studentName : ''} disabled={studentName} required />
+                        <Form.Control type="text" name='studentName' placeholder="Enter Student Name" defaultValue={studentName ? studentName : ''} disabled={studentName} required />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="obtainedGPA">

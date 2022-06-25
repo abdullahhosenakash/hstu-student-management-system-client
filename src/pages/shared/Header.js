@@ -9,7 +9,7 @@ import './Shared.css';
 const Header = () => {
     const [user] = useAuthState(auth);
     const navigate = useNavigate();
-    console.log(user)
+    // console.log(user)
     return (
         <div>
             <Navbar collapseOnSelect expand="lg" bg="secondary" variant="dark" className='fixed-top'>
