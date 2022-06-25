@@ -19,8 +19,6 @@ const Login = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [email, setEmail] = useState('');
 
-    console.log(role);
-
     const [
         signInWithEmailAndPassword,
         user2,

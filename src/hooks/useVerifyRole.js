@@ -6,7 +6,7 @@ import auth from '../firebase.init';
 const useVerifyRole = (role) => {
     const navigate = useNavigate();
     const storedRole = localStorage.getItem('role');
-    console.log(role, storedRole)
+
     useEffect(() => {
         if (role === 'admin') {
             if (storedRole !== '61646D696E') {

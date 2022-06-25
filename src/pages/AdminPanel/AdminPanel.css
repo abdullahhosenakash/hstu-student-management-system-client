@@ -1,0 +1,41 @@
+.batch-info {
+    width: 40%;
+}
+
+.update-result {
+    width: 50%;
+}
+
+.half-input-field {
+    width: 49% !important;
+    display: inline-block !important;
+}
+
+.left-field {
+    margin-right: 1%;
+}
+
+.right-field {
+    margin-left: 1%;
+}
+
+@media only screen and (max-width: 992px) {
+
+    .half-input-field {
+        width: 100% !important;
+    }
+
+    .left-field {
+        margin-right: 0;
+    }
+
+    .right-field {
+        margin-left: 0;
+    }
+
+    .batch-info,
+    .update-result {
+        width: 90%;
+        padding-top: 125px;
+    }
+}

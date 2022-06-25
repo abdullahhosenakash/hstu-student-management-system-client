@@ -4,11 +4,13 @@ import auth from '../firebase.init';
 
 const useToken = () => {
     const [user] = useAuthState(auth);
+    const [tokenLoading, setTokenLoading] = useState(false);
     const [token, setToken] = useState('');
     const [loggedInUser, setLoggedInUser] = useState({});
     const role = localStorage.getItem('role');
 
     useEffect(() => {
+        setTokenLoading(true);
         const userEmail = user?.email;
         if (role === '61646D696E' || role === '73747564656E74') {
             userEmail && fetch(`http://localhost:5000/user-login/${userEmail}&${role}`, {
@@ -28,10 +30,11 @@ const useToken = () => {
                     else {
                         localStorage.setItem('profileUpdated', false);
                     }
+                    setTokenLoading(false);
                 });
         }
     }, [user?.email, role])
-    return { token, loggedInUser };
+    return { token, loggedInUser, tokenLoading };
 };
 
 export default useToken;
