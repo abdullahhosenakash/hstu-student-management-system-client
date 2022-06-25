@@ -22,6 +22,16 @@ const UpdateResult = () => {
     const [reset, setReset] = useState(false);
     const [studentIdNo, setStudentIdNo] = useState('');
     const [studentName, setStudentName] = useState('');
+    const currentYear = new Date().getFullYear();
+    const [sessions, setSessions] = useState(0);
+
+    useEffect(() => {
+        let years = [];
+        for (let i = 2010; i <= currentYear; i++) {
+            years = [...years, i];
+        }
+        setSessions(years);
+    }, [currentYear]);
 
     useEffect(() => {
         if (studentIdNo.length === 7) {
@@ -146,6 +156,8 @@ const UpdateResult = () => {
     console.log(result)
 
 
+
+
     return (
         <div className='mb-5'>
             <div className={`${batchInfo.session ? 'd-none' : 'd-block'} batch-info mx-auto`}>
@@ -198,12 +210,26 @@ const UpdateResult = () => {
 
                     <Form.Group className="mb-3 half-input-field left-field" controlId="session">
                         <Form.Label>Session</Form.Label>
-                        <Form.Control type="number" name='session' placeholder="Enter Session" required onWheel={e => e.target.blur()} />
+                        <Form.Select aria-label="Floating label select example" name='session' required>
+                            <option value="">- - Select Session - -</option>
+                            {sessions.map(session => <option
+                                value={session}
+                                key={session}
+                            >{session}</option>)
+                            }
+                        </Form.Select>
                     </Form.Group>
 
                     <Form.Group className="mb-3 half-input-field right-field" controlId="examYear">
                         <Form.Label>Exam Year</Form.Label>
-                        <Form.Control type="number" onWheel={e => e.target.blur()} name='examYear' placeholder="Enter Exam Year" required />
+                        <Form.Select aria-label="Floating label select example" name='examYear' required>
+                            <option value="">- - Select Exam Year - -</option>
+                            {sessions.map(session => <option
+                                value={session}
+                                key={session}
+                            >{session}</option>)
+                            }
+                        </Form.Select>
                     </Form.Group>
 
                     {errorMessage && <p className='mt-2 text-danger'>{errorMessage}</p>}
