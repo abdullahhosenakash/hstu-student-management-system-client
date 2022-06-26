@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 const useCourses = (department, level, semester) => {
+    console.log(department)
     const [courses, setCourses] = useState([]);
     const levelSemester = level + semester;
     useEffect(() => {
@@ -185,6 +186,96 @@ const useCourses = (department, level, semester) => {
                             {
                                 courseCode: 'ECE 200',
                                 courseTitle: 'Industrial Tour'
+                            }
+                        ]);
+                        break;
+
+                    case '3I':
+                        setCourses([
+                            {
+                                courseCode: 'ECE 301',
+                                courseTitle: 'Semiconductor Physics and Devices'
+                            },
+                            {
+                                courseCode: 'ECE 303',
+                                courseTitle: 'Control System Engineering'
+                            },
+                            {
+                                courseCode: 'ECE 304',
+                                courseTitle: 'Control System Engineering Sessional'
+                            },
+                            {
+                                courseCode: 'ECE 305',
+                                courseTitle: 'Digital Communication'
+                            },
+                            {
+                                courseCode: 'ECE 306',
+                                courseTitle: 'Digital Communication Sessional'
+                            },
+                            {
+                                courseCode: 'ECE 307',
+                                courseTitle: 'Microwave Engineering'
+                            },
+                            {
+                                courseCode: 'ECE 308',
+                                courseTitle: 'Microwave Engineering Sessional'
+                            },
+                            {
+                                courseCode: 'ECE 309',
+                                courseTitle: 'Discrete Mathematics and Numerical Methods'
+                            },
+                            {
+                                courseCode: 'ECE 310',
+                                courseTitle: 'Discrete Mathematics and Numerical Methods Sessional'
+                            },
+                            {
+                                courseCode: 'CSE 316',
+                                courseTitle: 'Internet Programming Sessional'
+                            }
+                        ]);
+                        break;
+
+                    case '3II':
+                        setCourses([
+                            {
+                                courseCode: 'ECE 352',
+                                courseTitle: 'Electronic Project Design and Development'
+                            },
+                            {
+                                courseCode: 'ECE 353',
+                                courseTitle: 'Information Theory and Coding'
+                            },
+                            {
+                                courseCode: 'ECE 355',
+                                courseTitle: 'Digital Signal Processing'
+                            },
+                            {
+                                courseCode: 'ECE 356',
+                                courseTitle: 'Digital Signal Processing Sessional'
+                            },
+                            {
+                                courseCode: 'ECE 357',
+                                courseTitle: 'Computer communications and Networks'
+                            },
+                            {
+                                courseCode: 'ECE 358',
+                                courseTitle: 'Computer communications and Networks Sessional'
+                            },
+                            {
+                                courseCode: 'ECE 359',
+                                courseTitle: 'Antennas and Propagation'
+                            },
+                            {
+                                courseCode: 'ECE 360',
+                                courseTitle: 'Antennas and Propagation Sessional'
+                            },
+                            {
+                                courseCode: 'ECE 361',
+                                courseTitle: 'Microprocessor and Microcomputer'
+                            },
+                            {
+                                courseCode: 'ECE 362',
+                                courseTitle: 'Microprocessor and Microcomputer Sessional'
                             }
                         ]);
                         break;

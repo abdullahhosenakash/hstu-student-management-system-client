@@ -12,7 +12,7 @@ const Header = () => {
     // console.log(user)
     return (
         <div>
-            <Navbar collapseOnSelect expand="lg" bg="secondary" variant="dark" className='fixed-top'>
+            <Navbar collapseOnSelect expand="lg" bg="secondary" variant="dark" className='header-fixed-top'>
                 <Container>
                     <Navbar.Brand as={Link} to='/'>HSTU Student Panel</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />

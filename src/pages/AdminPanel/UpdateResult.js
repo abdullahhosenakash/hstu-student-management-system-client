@@ -26,6 +26,7 @@ const UpdateResult = () => {
     const [sessions, setSessions] = useState([]);
     const [selectedSession, setSelectedSession] = useState('');
     const [examYears, setExamYears] = useState([]);
+    console.log(courses)
 
     useEffect(() => {
         let years = [];

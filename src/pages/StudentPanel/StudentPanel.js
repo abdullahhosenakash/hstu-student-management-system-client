@@ -8,7 +8,7 @@ const StudentPanel = () => {
     useVerifyRole('student');
     return (
         <div className='header-margin'>
-            <div className="parent-route sticky-top">
+            <div className="parent-route">
                 <h2 className="display-6 text-center parent-heading">Student Panel</h2>
                 <nav className='d-flex nav-menu'>
                     <CustomLink to='/studentPanel/home'><span>HOME</span></CustomLink>

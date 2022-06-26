@@ -91,7 +91,7 @@ const Login = () => {
                 {role === 'admin' &&
                     <Form.Group className="mb-3" controlId="adminSecretKey">
                         <Form.Label>Admin Secret Key</Form.Label>
-                        <Form.Control type="number" onWheel={e => e.target.blur()} name='adminSecretKey' placeholder="Enter your secret key" required onFocus={() => setErrorMessage('')} />
+                        <Form.Control type="password" name='adminSecretKey' placeholder="Enter your secret key" required onFocus={() => setErrorMessage('')} />
                     </Form.Group>
                 }
 

@@ -58,7 +58,7 @@ const Result = () => {
                                 </Form.Select>
                             </Form.Group>
 
-                            <Button variant="primary" type="submit" className='w-50 mx-auto d-block'>
+                            <Button variant="secondary" type="submit" className='w-50 mx-auto d-block'>
                                 Submit
                             </Button>
                         </Form>

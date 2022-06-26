@@ -8,8 +8,8 @@ const useToken = () => {
     const [token, setToken] = useState('');
     const [loggedInUser, setLoggedInUser] = useState({});
     const role = localStorage.getItem('role');
-    // https://hidden-sea-34919.herokuapp.com/
-    // http://localhost:5000/
+    // https://hidden-sea-34919. herokuapp.com/
+    // http://localhost: 5000/
 
     useEffect(() => {
         setTokenLoading(true);
