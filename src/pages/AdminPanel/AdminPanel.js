@@ -4,6 +4,7 @@ import useVerifyRole from '../../hooks/useVerifyRole';
 import CustomLink from '../StudentPanel/CustomLink';
 
 const AdminPanel = () => {
+    console.log('aa')
     useVerifyRole('admin');
     return (
         // classes got from StudentPanel.css
@@ -14,7 +15,7 @@ const AdminPanel = () => {
                     <CustomLink to='/adminPanel/home'><span>HOME</span></CustomLink>
                     <CustomLink to='/adminPanel/pendingUsers'><span>PENDING USERS</span></CustomLink>
                     <CustomLink to='/adminPanel/updateResult'><span>UPDATE RESULT</span></CustomLink>
-                    <CustomLink to='/adminPanel/students'><span>UPDATE STUDENT</span></CustomLink>
+                    <CustomLink to='/adminPanel/updateStudent'><span>UPDATE STUDENT</span></CustomLink>
                     <CustomLink to='/adminPanel/students'><span>STUDENTS</span></CustomLink>
                     <CustomLink to='/adminPanel/adminProfile'><span>PROFILE</span></CustomLink>
                 </nav>

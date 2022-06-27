@@ -3,8 +3,7 @@ import { Button, Form } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Login.css';
 import auth from '../../firebase.init';
-import { useAuthState, useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import Loading from '../shared/Loading';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import useToken from '../../hooks/useToken';
@@ -13,6 +12,7 @@ import { toast } from 'react-toastify';
 
 const Login = () => {
     const { token } = useToken();
+    const availableToken = localStorage.getItem('accessToken');
     const location = useLocation();
     const { role } = location.state;
     const navigate = useNavigate();
@@ -21,7 +21,7 @@ const Login = () => {
 
     const [
         signInWithEmailAndPassword,
-        user2,
+        ,
         loading,
         error,
     ] = useSignInWithEmailAndPassword(auth);
@@ -37,8 +37,8 @@ const Login = () => {
             }
         }
         const from = location?.state?.from?.pathname || `${role === 'admin' ? '/adminPanel' : '/studentPanel'}`;
-        token && navigate(from, { replace: true });
-    }, [error, token, navigate, role, location?.state?.from?.pathname])
+        availableToken && navigate(from, { replace: true });
+    }, [error, navigate, availableToken, role, location?.state?.from?.pathname])
 
     if (loading) {
         // return <Loading />
@@ -57,16 +57,13 @@ const Login = () => {
                     if (data === 1) {
                         signInWithEmailAndPassword(email, password)
                             .then(() => {
-                                console.log('role');
                                 localStorage.setItem('role', '61646D696E');
-                                console.log(localStorage.getItem('role'))
                             });
                     }
                     else {
                         setErrorMessage('Wrong Credential! Please check your email and secret key');
                     }
                 })
-            // console.log(localStorage.getItem('role'))
         }
         else if (role === 'student') {
             signInWithEmailAndPassword(email, password)

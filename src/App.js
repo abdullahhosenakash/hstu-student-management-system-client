@@ -4,7 +4,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
-import RequireAuth from './pages/Login/RequireAuth';
 import SignUp from './pages/Login/SignUp';
 import Header from './pages/shared/Header';
 import StudentPanel from './pages/StudentPanel/StudentPanel';
@@ -20,6 +19,8 @@ import AdminProfile from './pages/AdminPanel/AdminProfile';
 import PendingUsers from './pages/AdminPanel/PendingUsers';
 import Students from './pages/AdminPanel/Students';
 import UpdateResult from './pages/AdminPanel/UpdateResult';
+import UpdateStudent from './pages/AdminPanel/UpdateStudent';
+import RequireToken from './pages/Login/RequireToken';
 
 function App() {
   return (
@@ -32,9 +33,9 @@ function App() {
         <Route path='/signup' element={<SignUp />} />
 
         <Route path='/studentPanel' element={
-          <RequireAuth>
+          <RequireToken>
             <StudentPanel />
-          </RequireAuth>
+          </RequireToken>
         }>
           <Route path='home' element={<StudentPanelHome />} />
           <Route path='' element={<StudentPanelHome />} />
@@ -44,9 +45,9 @@ function App() {
         </Route>
 
         <Route path='/adminPanel' element={
-          <RequireAuth>
+          <RequireToken>
             <AdminPanel />
-          </RequireAuth>
+          </RequireToken>
         }>
           <Route path='home' element={<AdminPanelHome />} />
           <Route path='' element={<AdminPanelHome />} />
@@ -54,6 +55,7 @@ function App() {
           <Route path='pendingUsers' element={<PendingUsers />} />
           <Route path='students' element={<Students />} />
           <Route path='updateResult' element={<UpdateResult />} />
+          <Route path='updateStudent' element={<UpdateStudent />} />
         </Route>
 
         <Route path='/forbiddenAccess' element={<ForbiddenAccess />} />

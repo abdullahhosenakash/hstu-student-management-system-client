@@ -1,9 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useState } from 'react';
 import { Button, Form, Table } from 'react-bootstrap';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
-import auth from '../../firebase.init';
 import useToken from '../../hooks/useToken';
 import useVerifyRole from '../../hooks/useVerifyRole';
 
