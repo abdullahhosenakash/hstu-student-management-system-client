@@ -39,7 +39,7 @@ const UpdateResult = () => {
     useEffect(() => {
         if (selectedSession) {
             let years = [];
-            for (let i = currentYear; i > selectedSession; i--) {
+            for (let i = currentYear; i >= selectedSession; i--) {
                 years = [...years, i];
             }
             setExamYears(years);
