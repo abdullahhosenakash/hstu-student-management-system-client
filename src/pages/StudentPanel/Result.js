@@ -11,6 +11,8 @@ const Result = () => {
     const { loggedInUser } = useToken();
     const [levelSemester, setLevelSemester] = useState({});
     const isProfileUpdated = localStorage.getItem('profileUpdated');
+    const [errorMessage, setErrorMessage] = useState('');
+
 
     const handleGetResult = event => {
         event.preventDefault();
@@ -18,7 +20,7 @@ const Result = () => {
         const semester = event.target.semester.value;
         setLevelSemester({ level, semester });
         const studentId = loggedInUser.studentId;
-        const url = `https://hidden-sea-34919.herokuapp.com/results/&${studentId}&${level}&${semester}`;
+        const url = `http://localhost:5000/results/${studentId}&${level}&${semester}`;
 
         fetch(url, {
             method: 'GET',
@@ -27,9 +29,15 @@ const Result = () => {
             }
         })
             .then(res => res.json())
-            .then(data => setResult(data));
+            .then(data => {
+                if (data.message) {
+                    setErrorMessage(data.message);
+                }
+                else {
+                    setResult(data);
+                }
+            });
     }
-    console.log(result);
     return (
         <div className='result mx-auto mb-5'>
             {isProfileUpdated === 'true' ?
@@ -38,7 +46,7 @@ const Result = () => {
                         <Form onSubmit={handleGetResult}>
                             <Form.Group controlId="level" className='mb-3'>
                                 <Form.Label>Level</Form.Label>
-                                <Form.Select aria-label="Floating label select example" name='level' required>
+                                <Form.Select aria-label="Floating label select example" name='level' onClick={() => setErrorMessage('')} required>
                                     <option value="">- - Select Level - -</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -63,7 +71,11 @@ const Result = () => {
                     </div>
 
                     <div className="result-subsection">
-                        <h2 className={`result-text ${result.result ? 'd-none' : 'd-block'}`}>Please Select level and semester to see your result</h2>
+                        {errorMessage ?
+                            <h2 className='mt-5 text-danger text-center'>{errorMessage}</h2>
+                            :
+                            <h2 className={`result-text ${result.result ? 'd-none' : 'd-block'}`}>Please Select level and semester to see your result</h2>
+                        }
                         <div className={result.result ? 'd-block' : 'd-none'}>
                             <h6 className="text-center text-muted d-flex flex-lg-row flex-column justify-content-center">
                                 <span>
@@ -110,7 +122,7 @@ const Result = () => {
                 :
                 <h2 className='update-profile-text'><Link to='/studentPanel/userProfile' className='text-decoration-none'>Click here</Link> to update your profile first</h2>
             }
-        </div>
+        </div >
     );
 };
 

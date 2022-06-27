@@ -24,6 +24,7 @@ const UpdateProfile = () => {
     const [loading, setLoading] = useState(false);
 
     const { userName, userEmail, phone, studentId, faculty: studentFaculty, department } = loggedInUser || {};
+    console.log(userEmail);
     const isProfileUpdated = localStorage.getItem('profileUpdated');
 
     if (loading) {
@@ -41,8 +42,8 @@ const UpdateProfile = () => {
         const studentIdCard = event.target.studentIdCard.files[0];
 
         const reference = ref(storage, `images/session-20${studentId.slice(0, 2)}/faculty-${faculty}/department-${department}/${studentId}`);
-        const url = `https://hidden-sea-34919.herokuapp.com/updateUser/${studentId}`;
 
+        const url = `http://localhost:5000/updateUser/${studentId}`;
         fetch(url, {
             method: 'GET',
             headers: {
@@ -58,6 +59,7 @@ const UpdateProfile = () => {
                     return;
                 }
                 else if (res.status === 404) {
+                    console.log(res.json())
                     setErrorMessage('Student ID Number is invalid');
                     return;
                 }
@@ -66,7 +68,7 @@ const UpdateProfile = () => {
                 }
             })
             .then(data => {
-                if (!data.userEmail) {
+                if (!data?.userEmail) {
                     uploadBytes(reference, studentIdCard)
                         .then(() => {
                             getDownloadURL(reference)
@@ -108,14 +110,14 @@ const UpdateProfile = () => {
                         label="Name"
                         className="mb-3"
                     >
-                        <Form.Control value={userName} disabled />
+                        <Form.Control defaultValue={userName} disabled />
                     </FloatingLabel>
 
                     <FloatingLabel
                         label="Email address"
                         className="mb-3"
                     >
-                        <Form.Control value={userEmail} disabled />
+                        <Form.Control defaultValue={userEmail} disabled />
                     </FloatingLabel>
 
                     <FloatingLabel
@@ -152,12 +154,12 @@ const UpdateProfile = () => {
 
                     <Form.Group className="mb-3" controlId="studentName">
                         <Form.Label>Name</Form.Label>
-                        <Form.Control type="text" name='name' placeholder="Enter Name according to your Student ID Card" value={user?.displayName} disabled />
+                        <Form.Control type="text" name='name' placeholder="Enter Name according to your Student ID Card" defaultValue={user?.displayName} disabled />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="studentEmail">
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" name='email' placeholder="Enter email" value={user?.email} disabled />
+                        <Form.Control type="email" name='email' placeholder="Enter email" defaultValue={user?.email} disabled />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="studentId">

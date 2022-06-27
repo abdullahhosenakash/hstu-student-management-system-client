@@ -23,6 +23,8 @@ const Home = () => {
                 <>
                     <Link to='/login' className='text-decoration-none btn btn-secondary login-button mx-auto d-block mb-3 mt-4' state={{ role: 'student' }}>Student Login</Link>
 
+                    <Link to='/signup' className='text-decoration-none btn btn-secondary login-button mx-auto d-block mb-3 mt-4' state={{ role: 'student' }}>Student Sign Up</Link>
+
                     <Link to='/login' className='text-decoration-none btn btn-secondary login-button d-block mx-auto' state={{ role: 'admin' }}>Admin Login</Link>
                 </>
             }

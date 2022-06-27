@@ -13,7 +13,7 @@ const RequireToken = ({ children }) => {
         return <Navigate to='/login' state={{ from: location }} replace />
     }
     else {
-        fetch('https://hidden-sea-34919.herokuapp.com/verifyToken', {
+        fetch('http://localhost:5000/verifyToken', {
             headers: {
                 'authorization': `Bearer ${availableToken}`
             }

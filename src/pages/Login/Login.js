@@ -51,7 +51,7 @@ const Login = () => {
         setEmail(email);
         if (role === 'admin') {
             const adminSecretKey = event.target.adminSecretKey.value;
-            fetch(`https://hidden-sea-34919.herokuapp.com/isAdmin/${email}&${adminSecretKey}`)
+            fetch(`http://localhost:5000/isAdmin/${email}&${adminSecretKey}`)
                 .then(res => res.json())
                 .then(data => {
                     if (data === 1) {
