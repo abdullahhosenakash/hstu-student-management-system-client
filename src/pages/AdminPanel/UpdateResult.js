@@ -30,7 +30,7 @@ const UpdateResult = () => {
 
     useEffect(() => {
         let years = [];
-        for (let i = 2010; i <= currentYear; i++) {
+        for (let i = currentYear; i >= 2010; i--) {
             years = [...years, i];
         }
         setSessions(years);
@@ -39,7 +39,7 @@ const UpdateResult = () => {
     useEffect(() => {
         if (selectedSession) {
             let years = [];
-            for (let i = selectedSession; i <= currentYear; i++) {
+            for (let i = currentYear; i > selectedSession; i--) {
                 years = [...years, i];
             }
             setExamYears(years);
@@ -171,9 +171,6 @@ const UpdateResult = () => {
             setResult([...result, courseResult])
         }
     }
-
-
-
 
     return (
         <div className='mb-5'>
