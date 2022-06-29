@@ -48,7 +48,7 @@ const UpdateResult = () => {
 
     useEffect(() => {
         if (studentIdNo.length === 7) {
-            fetch(`http://localhost:5000/studentInfo/${studentIdNo}`, {
+            fetch(`https://hidden-sea-34919.herokuapp.com/studentInfo/${studentIdNo}`, {
                 method: 'GET',
                 headers: {
                     'authorization': `Bearer ${localStorage.getItem('accessToken')}`
@@ -121,7 +121,7 @@ const UpdateResult = () => {
         }
         console.log(studentResult);
 
-        fetch('http://localhost:5000/updateResult', {
+        fetch('https://hidden-sea-34919.herokuapp.com/updateResult', {
             method: 'POST',
             headers: {
                 'authorization': `Bearer ${localStorage.getItem('accessToken')}`,

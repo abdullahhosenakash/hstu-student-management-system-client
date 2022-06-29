@@ -43,7 +43,7 @@ const UpdateProfile = () => {
 
         const reference = ref(storage, `images/session-20${studentId.slice(0, 2)}/faculty-${faculty}/department-${department}/${studentId}`);
 
-        const url = `http://localhost:5000/updateUser/${studentId}`;
+        const url = `https://hidden-sea-34919.herokuapp.com/updateUser/${studentId}`;
         fetch(url, {
             method: 'GET',
             headers: {

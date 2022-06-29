@@ -9,7 +9,6 @@ import useCourses from '../../hooks/useCourses';
 import useDegree from '../../hooks/useDegree';
 import useDept from '../../hooks/useDept';
 import './AdminPanel.css';
-import CourseResult from './CourseResult';
 
 const UpdateStudent = () => {
     const [errorMessage, setErrorMessage] = useState('');
@@ -18,13 +17,10 @@ const UpdateStudent = () => {
     const [faculty, setFaculty] = useState('');
     const [dept] = useDept(faculty);
     const [courses] = useCourses(batchInfo?.department, batchInfo?.level, batchInfo?.semester);
-    const [result, setResult] = useState([]);
-    const [reset, setReset] = useState(false);
     const [studentIdNo, setStudentIdNo] = useState('');
     const [studentName, setStudentName] = useState('');
     const currentYear = new Date().getFullYear();
     const [sessions, setSessions] = useState([]);
-    const [selectedSession, setSelectedSession] = useState('');
     const [days, setDays] = useState([]);
     const [years, setYears] = useState([]);
     const [selectedYear, setSelectedYear] = useState('');
@@ -76,7 +72,7 @@ const UpdateStudent = () => {
 
     useEffect(() => {
         if (studentIdNo.length === 7) {
-            fetch(`http://localhost:5000/studentInfo/${studentIdNo}`, {
+            fetch(`https://hidden-sea-34919.herokuapp.com/studentInfo/${studentIdNo}`, {
                 method: 'GET',
                 headers: {
                     'authorization': `Bearer ${localStorage.getItem('accessToken')}`
@@ -118,7 +114,7 @@ const UpdateStudent = () => {
         const batchInfo = { faculty, department, session };
         console.log(batchInfo);
         setBatchInfo(batchInfo);
-        event.target.reset();
+        // event.target.reset();
     }
 
     const handleUpdateStudent = event => {
@@ -126,34 +122,27 @@ const UpdateStudent = () => {
         // setLoading(true);
         const studentId = event.target.studentId.value;
         const studentName = event.target.studentName.value;
-        const obtainedGPA = event.target.obtainedGPA.value;
-
-
-        const courseResult = courses.map(course => {
-            const available = result.find(c => c.courseCode === course.courseCode);
-            return available;
-        });
-        const studentResult = {
+        const year = event.target.year.value;
+        const month = event.target.month.value;
+        const day = event.target.day.value;
+        const dateOfBirth = `${month} ${day}, ${year}`;
+        const studentInfo = {
             studentId,
             studentName,
             department: batchInfo.department,
-            level: batchInfo.level,
-            semester: batchInfo.semester,
-            nameOfTheExam: degree,
-            examYear: batchInfo.examYear,
+            degree,
             session: batchInfo.session,
-            result: courseResult,
-            GPA: obtainedGPA
+            dateOfBirth
         }
-        console.log(studentResult);
+        console.log(studentInfo);
 
-        fetch('http://localhost:5000/updateResult', {
+        fetch('https://hidden-sea-34919.herokuapp.com/updateStudent', {
             method: 'POST',
             headers: {
                 'authorization': `Bearer ${localStorage.getItem('accessToken')}`,
                 'content-type': 'application/json'
             },
-            body: JSON.stringify(studentResult)
+            body: JSON.stringify(studentInfo)
         })
             .then(res => {
                 if (res.status === 401 || res.status === 403) {
@@ -164,7 +153,7 @@ const UpdateStudent = () => {
                     return;
                 }
                 else if (res.status === 404) {
-                    setErrorMessage('Failed to update result');
+                    setErrorMessage('Failed to update student');
                     return;
                 }
                 else {
@@ -174,11 +163,9 @@ const UpdateStudent = () => {
             .then(data => {
                 console.log(data);
                 if (data.acknowledged) {
-                    setReset(true);
-                    setResult([]);
                     event.target.reset();
                     setStudentName('');
-                    toast.success('Result updated successfully!');
+                    toast.success('Student updated successfully!');
                 }
                 else {
                     setErrorMessage(data.message);
@@ -218,7 +205,7 @@ const UpdateStudent = () => {
 
                     <Form.Group className="mb-3" controlId="session">
                         <Form.Label>Session</Form.Label>
-                        <Form.Select aria-label="Floating label select example" name='session' onChange={e => setSelectedSession(e.target.value)} required>
+                        <Form.Select aria-label="Floating label select example" name='session' required>
                             <option value="">- - Select Session - -</option>
                             {sessions.map(session => <option
                                 value={session}
@@ -245,7 +232,7 @@ const UpdateStudent = () => {
                     <span className='me-2'>Session - {batchInfo.session}</span>
                 </h6>
 
-                <Form onSubmit={handleUpdateStudent} onClick={() => setReset(false)}>
+                <Form onSubmit={handleUpdateStudent}>
                     <Form.Group className="mb-3" controlId="studentId">
                         <Form.Label>Student ID No</Form.Label>
                         <Form.Control type="number" name='studentId' placeholder="Enter Student ID No" required onWheel={e => e.target.blur()} onClick={() => setErrorMessage('')} onChange={e => setStudentIdNo(e.target.value)} />
@@ -282,7 +269,7 @@ const UpdateStudent = () => {
                                 <option value='november'>November</option>
                                 <option value='december'>December</option>
                             </Form.Select>
-                            <Form.Select aria-label="day" name='day' required onChange={e => setFaculty(e.target.value)}>
+                            <Form.Select aria-label="day" name='day' required>
                                 <option value=''>Day</option>
                                 {days.map(day => <option
                                     value={day}

@@ -20,7 +20,7 @@ const Result = () => {
         const semester = event.target.semester.value;
         setLevelSemester({ level, semester });
         const studentId = loggedInUser.studentId;
-        const url = `http://localhost:5000/results/${studentId}&${level}&${semester}`;
+        const url = `https://hidden-sea-34919.herokuapp.com/results/${studentId}&${level}&${semester}`;
 
         fetch(url, {
             method: 'GET',
