@@ -10,14 +10,12 @@ function CustomLink({ children, to, ...props }) {
             <Link
                 style={{
                     textDecoration: 'none',
-                    color: match ? '#0170c5' : 'black',
-                    marginRight: '20px',
-                    padding: '10px',
-                    borderBottom: match ? '2px solid #0170c5' : '1px solid gray'
+                    color: match ? 'white' : 'rgba(255,255,255,.55)',
+                    paddingBottom: '1px',
+                    borderBottom: match ? '2px solid white' : 'none'
                 }}
                 to={to}
                 {...props}
-                className='custom-link'
             >
                 {children}
             </Link>

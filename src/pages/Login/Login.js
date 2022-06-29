@@ -77,7 +77,7 @@ const Login = () => {
 
     return (
         <div className='login-page mx-auto header-margin'>
-            <h2 className='display-6'>{role === 'admin' ? "Admin" : "Student"} Login</h2>
+            <h2 className='display-6 text-center'>{role === 'admin' ? "Admin" : "Student"} Login</h2>
             <Form onSubmit={handleLogin}>
 
                 <Form.Group className="mb-3" controlId="emailAddress">
