@@ -36,6 +36,7 @@ const Header = () => {
                                     <Nav.Link><CustomLink to='/adminPanel/pendingUsers'>Pending Users</CustomLink></Nav.Link>
                                     <Nav.Link><CustomLink to='/adminPanel/updateResult'>Update Result</CustomLink></Nav.Link>
                                     <Nav.Link><CustomLink to='/adminPanel/updateStudent'>Update Student</CustomLink></Nav.Link>
+                                    <Nav.Link><CustomLink to='/adminPanel/manageStudents'>Manage Students</CustomLink></Nav.Link>
                                     <Nav.Link><CustomLink to='/adminPanel/adminProfile'>Profile</CustomLink></Nav.Link>
                                 </Nav>
                             </>

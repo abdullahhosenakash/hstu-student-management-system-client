@@ -4,7 +4,7 @@ import './Errors.css';
 
 const NotFound = () => {
     return (
-        <div className='text-danger header-margin text-center'>
+        <div className='text-danger header-margin text-center pt-5'>
             <h1 className='oops'>OOPS!</h1>
             <img className='error-image' src={error} alt="" />
             <h2 className='page-not-found'>The page you are finding is not found..</h2>

@@ -6,6 +6,10 @@
     width: 50%;
 }
 
+.update-student {
+    width: 35%;
+}
+
 .half-input-field {
     width: 49% !important;
     display: inline-block !important;
@@ -35,6 +39,10 @@
 
     .batch-info,
     .update-result {
+        width: 90%;
+    }
+
+    .update-student {
         width: 90%;
     }
 }

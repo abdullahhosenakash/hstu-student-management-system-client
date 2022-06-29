@@ -17,10 +17,10 @@ import AdminPanel from './pages/AdminPanel/AdminPanel';
 import AdminPanelHome from './pages/AdminPanel/AdminPanelHome';
 import AdminProfile from './pages/AdminPanel/AdminProfile';
 import PendingUsers from './pages/AdminPanel/PendingUsers';
-import Students from './pages/AdminPanel/Students';
 import UpdateResult from './pages/AdminPanel/UpdateResult';
 import UpdateStudent from './pages/AdminPanel/UpdateStudent';
 import RequireToken from './pages/Login/RequireToken';
+import ManageStudents from './pages/AdminPanel/ManageStudents';
 
 function App() {
   return (
@@ -53,7 +53,7 @@ function App() {
           <Route path='' element={<AdminPanelHome />} />
           <Route path='adminProfile' element={<AdminProfile />} />
           <Route path='pendingUsers' element={<PendingUsers />} />
-          <Route path='students' element={<Students />} />
+          <Route path='manageStudents' element={<ManageStudents />} />
           <Route path='updateResult' element={<UpdateResult />} />
           <Route path='updateStudent' element={<UpdateStudent />} />
         </Route>
