@@ -32,11 +32,14 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
 
-        <Route path='/studentPanel' element={
-          <RequireToken>
-            <StudentPanel />
-          </RequireToken>
-        }>
+        <Route
+          path='/studentPanel'
+          element={
+            <RequireToken>
+              <StudentPanel />
+            </RequireToken>
+          }
+        >
           <Route path='home' element={<StudentPanelHome />} />
           <Route path='' element={<StudentPanelHome />} />
           <Route path='userProfile' element={<UserProfile />} />
@@ -44,11 +47,14 @@ function App() {
           <Route path='result' element={<Result />} />
         </Route>
 
-        <Route path='/adminPanel' element={
-          <RequireToken>
-            <AdminPanel />
-          </RequireToken>
-        }>
+        <Route
+          path='/adminPanel'
+          element={
+            <RequireToken>
+              <AdminPanel />
+            </RequireToken>
+          }
+        >
           <Route path='home' element={<AdminPanelHome />} />
           <Route path='' element={<AdminPanelHome />} />
           <Route path='adminProfile' element={<AdminProfile />} />
